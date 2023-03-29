@@ -90,7 +90,7 @@ WHERE name='홍길동';
 제공된 예제를 보면 Hint를 사용하고 있습니다.
 
 기본적으로 subquery를 통해 얻어진 파생 테이블은 optimizer에 의해 가장 바깥에 있는 테이블로 merge가 되기 때문에 `NO_MERGE` Hint를 사용하여 파생 테이블의 materialization을 강제합니다. merge를 해제하면 자동으로 materialization을 수행합니다.
->Materialization은 데이터베이스 쿼리 최적화에서 사용되는 기법 중 하나로, 쿼리의 일부분을 실행하고 그 결과를 일시적으로 저장한 다음 이를 사용하여 쿼리의 나머지 부분을 완료하는 과정입니다. 이렇게 하면 쿼리의 전체 성능을 향상시킬 수 있습니다.
+>Materialization은 데이터베이스 쿼리 최적화에서 사용되는 기법 중 하나로, 쿼리의 일부분을 실행하고 그 결과를 일시적으로 저장한 다음 이를 사용하여 쿼리의 나머지 부분을 완료하는 과정입니다. 이렇게 하면 쿼리의 전체 성능을 향상시킬 수 있습니다. by chatGPT
 {: .prompt-tip }
 
 ```sql
@@ -103,7 +103,7 @@ UPDATE /*+ NO_MERGE(discounted) */ items,
 ```
 제가 오류가 났던 SQL 구문은 아래와 같이 수정할 수 있겠습니다.
 ```sql
-UPDATE /*+ NO_MERGE(x) */ emp_copy x,
+UPDATE /*+ NO_MERGE(y) */ emp_copy x,
 (SELECT hire_date FROM emp_copy WHERE name='jack') as y
 SET x.hire_date=y.hire_date
 WHERE name='홍길동';
