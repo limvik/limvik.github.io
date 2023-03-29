@@ -26,7 +26,7 @@ UPDATE t ... WHERE col = (SELECT * FROM (SELECT ... FROM t ...) AS dt ...);
 ```
 해결책2. 다중 테이블(multi-table) 사용
 ```sql
-UPDATE /*+ NO_MERGE(discounted) */ t AS a,
+UPDATE /*+ NO_MERGE(b) */ t AS a,
 (SELECT ... FROM t ... WHERE col = ?) AS b
 ...
 WHERE a.col = b.col ...;
