@@ -22,4 +22,4 @@ package-lock.json
 assets/js/dist
 
 # WSL
-.Identifier
+*Zone.Identifier
