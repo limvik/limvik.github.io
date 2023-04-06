@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 객체지향개발 연습3 - 사용자 객체 구현
+title: 객체지향개발 연습2-3 - 사용자 객체 구현
 categories:
 - OOP
 tags:

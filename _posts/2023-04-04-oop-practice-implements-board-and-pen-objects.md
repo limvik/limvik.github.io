@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 객체지향개발 연습4 - 현황판, 필기구 객체 구현
+title: 객체지향개발 연습2-4 - 현황판, 필기구 객체 구현
 categories:
 - OOP
 tags:

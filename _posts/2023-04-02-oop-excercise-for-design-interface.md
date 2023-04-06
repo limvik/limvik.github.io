@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 객체지향개발 연습2 - 인터페이스 설계
+title: 객체지향개발 연습2-2 - 인터페이스 설계
 categories:
 - OOP
 tags:
