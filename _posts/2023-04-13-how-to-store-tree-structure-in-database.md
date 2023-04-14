@@ -74,7 +74,7 @@ Closure Table은 제가 다대다 관계로 모든 조상 정보와 모든 자�
 
 출처: [https://www.baeldung.com/cs/storing-tree-in-rdb](https://www.baeldung.com/cs/storing-tree-in-rdb)
 
-하지만 `조회`할 때 빼고는 수정해야 할 row가 많아지므로, `조회`가 많이 발생하는게 아닌 이상 사용하기 어려울 것 같습니다. 자식이 없더라도 깊이가 깊으면 많은 row가 생기기도 합니다. 
+자식이 없더라도 깊이가 깊으면 많은 row가 발생하는 등 `조회`할 때 빼고는 수정해야 할 row가 많아지므로, `조회`가 많이 발생하는게 아닌 이상 사용하기 어려울 것 같습니다. 하지만 `조회` 성능이 중요한 경우 이어서 나올 패턴들을 고려하는게 적절하므로 굳이 사용할 이유는 없는 패턴으로 판단됩니다.
 
 ---
 
@@ -87,7 +87,7 @@ Closure Table 패턴 정리
 
 ### Storing Paths 또는 Materialized Path
 
-이는 Closure Table의 조회 속도를 더 높여보려는 패턴으로 생각됩니다.
+이 패턴은 개념적으로 어렵지 않으면서도, 사용법도 간편합니다.
 
 ```
 id | ancestry | data
@@ -101,7 +101,7 @@ id | ancestry | data
  7 | 1/5/     | Child 2.2
 ```
 
-위와 같은 테이블이 존재할 때, 아래와 같이 LIKE 절을 사용하여 자식들을 쉽게 `조회`할 수 있습니다.
+위와 같은 테이블이 존재할 때, 아래와 같이 `LIKE` 절을 사용하여 자식들을 쉽게 `조회`할 수 있습니다.
 
 ```sql
 SELECT * FROM nodes WHERE ancestry = '1/2' OR ancestry LIKE '1/2/%'
@@ -110,9 +110,9 @@ SELECT * FROM nodes WHERE ancestry = '1/2' OR ancestry LIKE '1/2/%'
 
 `삽입` 시에는 간단하게 하나의 row만 추가하면 됩니다. 자식이 없는 경우에는 `삭제`, `이동(수정)` 시 해당 row만 영향을 받으므로 간단합니다.
 
-자식이 있는 경우에는 `삭제` 또는 `이동(수정)` 시에 속해있는 자식들도 모두 수정을 해야하는 문제가 있습니다. 그래도 Closure Table 보다는 부하가 덜 할 것 같습니다.
+자식이 있는 경우에는 `삭제` 또는 `이동(수정)` 시에 속해있는 자식들도 모두 수정을 해야하는 문제가 있습니다. 그래도 Closure Table 보다는 수정해야 할 row 수가 적어 부하가 적을 것으로 예상됩니다.
 
-이러한 패턴의 대표적인 예로는 `URL`이 있으며, `대부분의 경우에 추천` 할만 하지만, `참조 무결성이 손실`됩니다.
+이러한 패턴의 대표적인 예로는 `URL`이 있으며, `대부분의 경우에 추천` 할만 하지만, `참조 무결성 손실`이 발생합니다.
 
 ---
 
@@ -159,7 +159,9 @@ SELECT * FROM nodes WHERE lft >= 2 AND rgt < 7 AND id != 2
 ```
 출처: [https://makandracards.com/makandra/45275-storing-trees-in-databases](https://makandracards.com/makandra/45275-storing-trees-in-databases)
 
-갱신(삽입/수정/삭제)이 발생한다면 1~14 넘버링한 것도 변경해줘야 하는 귀찮은 일이 발생하겠네요. 극단적으로 갱신이 적게 발생한다면 시도해볼만 할 것 같습니다.
+갱신(삽입/수정/삭제)이 발생한다면 위의 경우 1~14 넘버링한 것도 변경해줘야 하는 귀찮은 일이 발생하겠네요. 갱신이 적게 발생하고, 조회 성능을 어떻게든 끌어올려야 하는 경우가 아닌 이상 쓸 이유가 없을 것 같아 보입니다.
+
+MongoDB 문서([링크](https://www.mongodb.com/docs/manual/tutorial/model-tree-structures-with-nested-sets/))에 있는 Nested Sets를 검색하다 보게 됐는데, 변경이 없는 static tree에 사용하기 최적이라고 언급하고 있습니다.
 
 ---
 
@@ -173,5 +175,11 @@ Nested Set 패턴 정리
 ## Outro
 
 패턴을 보면서 느낀점은 계층 구조를 관계형 데이터베이스에 저장하기는 적합하지 않다는 것이었습니다. 물론 어플리케이션의 규모에 따라 달라지긴 하겠지만, 큰 규모를 고려한다면 다른 데이터베이스를 사용하는 것도 고려해야겠습니다.
+
+직접 테스트해보지 않아서 정확하지는 않지만, 설명된 내용만으로 볼 때는 아래와 같이 정리할 수 있겠습니다.
+- 조회 : Nested Set > Storing Paths(또는 Materialized Path) > Closure Table > Parent-Child
+- 수정 : Parent-Child > Storing Paths(또는 Materialized Path) > Closure Table > Nested Set
+- 삽입 : Parent-Child > Storing Paths(또는 Materialized Path) > Closure Table > Nested Set
+- 삭제 : Parent-Child > Storing Paths(또는 Materialized Path) > Closure Table > Nested Set
 
 일단 저는 배웠던 관계형 데이터베이스를 적용해보는 목적이 있고, 규모도 작은 것을 가정했기 때문에 Closure Table이나 Storing Paths(또는 Materialized Path)를 사용하여 설계를 계속 진행해야겠습니다.
