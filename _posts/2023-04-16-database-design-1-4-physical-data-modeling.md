@@ -288,11 +288,16 @@ CREATE INDEX "idx_tags_tag" ON "Tags" (
 );
 
 --플래너 테이블의 다음 학습 일정 컬럼
-CREATE INDEX "" ON "Planner" (
+CREATE INDEX "idx_planner_next_study_date" ON "Planner" (
 	"next_study_date"	DESC
 );
 ```
-단순히 인덱스만 추가한다고 빨라지는 것은 아니라고 이론적으로 많이 배웠는데 너무 마구잡이로 추가하는 느낌이라 썩 내키지가 않는 기분입니다. 인덱스는 언제든지 삭제할 수 있으니, 이후에 성능 측정하는 방법도 공부해서 비교해보는게 좋겠습니다.
+
+단순히 인덱스만 추가한다고 빨라지는 것은 아니라고 이론적으로 많이 배웠는데 너무 마구잡이로 추가하는 느낌이라 썩 내키지가 않는 기분입니다. 특히나 TEXT 속성이라 더욱 그렇습니다.
+
+SQLite Query Optimizer Overview([링크](https://www.sqlite.org/optoverview.html)) 문서를 보면, `WHERE` 절에서 `LIKE` 를 사용할 보관함 테이블의 ancestry 컬럼과 `=` 연산자를 사용할 태그 테이블의 tag 컬럼, 플래너 테이블의 next_study_date 컬럼은 그래도 인덱스를 사용하기는 할 것으로 판단됩니다. 그런데 카드테이블에 있는 front, back, memo 컬럼은 문장이 될 수도 있기 때문에 인덱스가 효용이 있을지 의문입니다. 어렴풋이 Full Table Search extension을 들은적이 있는데 확인해 봐야겠습니다.
+
+인덱스는 언제든지 삭제할 수 있으니, 이후에 성능 측정하는 방법도 공부해서 비교해보는게 좋겠습니다.
 
 ## Outro
 
