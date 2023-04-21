@@ -9,7 +9,6 @@ tags:
 - Codegen
 date: 2023-04-17 22:54 +0900
 ---
-간단한 AWS Codewhisper 사용기
 
 ## Intro
 
