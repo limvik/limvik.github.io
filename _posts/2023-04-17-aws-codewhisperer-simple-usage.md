@@ -16,8 +16,12 @@ AWS CodeWhisperer는 AWS에 가입하지 않고도 이메일 등록만하면 `�
 
 ## AWS CodeWhisperer 설치
 
-워낙 간단해서 굳이 여기에 다시 정리할 필요는 없을 것 같습니다. 문서([링크](https://docs.aws.amazon.com/codewhisperer/latest/userguide/whisper-setup-indv-devs.html))도 굉장히 짧게 안내합니다. 그리고 영상도 아니고 아래와 같이 gif 로 설치방법을 보여줍니다.
-![Amazon CodeWhisperer 설치 과정](https://docs.aws.amazon.com/images/codewhisperer/latest/userguide/images/cwspr-in-2-min_1x.gif)
+워낙 간단해서 굳이 여기에 다시 정리할 필요는 없을 것 같습니다. 문서([링크](https://docs.aws.amazon.com/codewhisperer/latest/userguide/whisper-setup-indv-devs.html))도 굉장히 짧게 안내합니다. ~~그리고 영상도 아니고 아래와 같이 gif 로 설치방법을 보여줍니다.
+![Amazon CodeWhisperer 설치 과정](https://docs.aws.amazon.com/images/codewhisperer/latest/userguide/images/cwspr-in-2-min_1x.gif)~~
+
+gif 파일이 사라져서 영상을 추가합니다.
+
+{% include embed/youtube.html id='rHNMfOK8pWI' %}
 
 뭔가 id를 만들기는 해야되기는 한데, AWS Builder ID 생성이니까 AWS 가입 안해도 된다는 말이 사실이기는 하네요.ㅎㅎ
 
