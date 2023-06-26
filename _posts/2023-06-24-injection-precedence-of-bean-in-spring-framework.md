@@ -34,10 +34,10 @@ import org.springframework.stereotype.Service;
 @Service("simple")
 public class SimpleMessageService implements MessageService {
 
-	@Override
-	public String getMessage() {
-		return "Hello World!";
-	}
+    @Override
+    public String getMessage() {
+        return "Hello World!";
+    }
 
 }
 
@@ -47,10 +47,10 @@ import org.springframework.stereotype.Service;
 @Service("advanced")
 public class AdvancedMessageService implements MessageService {
 
-	@Override
-	public String getMessage() {
-		return "Hello API World!";
-	}
+    @Override
+    public String getMessage() {
+        return "Hello API World!";
+    }
 
 }
 ```
@@ -66,15 +66,15 @@ import com.limvik.precedence.service.MessageService;
 @Component
 public class MessagePrinter {
 	
-	private MessageService messageService;
+    private MessageService messageService;
 	
-	MessagePrinter(@Qualifier("advanced") MessageService messageService) {
-		this.messageService = messageService;
-	}
+    MessagePrinter(@Qualifier("advanced") MessageService messageService) {
+        this.messageService = messageService;
+    }
 	
-	public void printMessages() {
-		System.out.println(messageService.getMessage());
-	}
+    public void printMessages() {
+        System.out.println(messageService.getMessage());
+    }
 	
 }
 ```
@@ -88,11 +88,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class AnnotationPrecedenceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AnnotationPrecedenceApplication.class, args)
-		.getBean(MessagePrinter.class)
-		.printMessages(); // Hello API World!
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AnnotationPrecedenceApplication.class, args)
+            .getBean(MessagePrinter.class)
+            .printMessages(); // Hello API World!
+    }
 
 }
 ```
@@ -104,7 +104,7 @@ public class AnnotationPrecedenceApplication {
 ```java
 @Autowired
 MessagePrinter(MessageService messageService) {
-	this.messageService = messageService;
+    this.messageService = messageService;
 }
 ```
 굳이 이걸로는 일부러 오류를 발생시켜보지는 않았더니, 오류 메시지를 처음 봤습니다. 책에서 처음 봤던 @Primary 혹은 @Qualifier 를 사용하라는 action 메시지도 있습니다.
@@ -163,17 +163,17 @@ matching 되는 type이 있다면 해당 type에서 qualifier와 name을 찾아�
 ```java
 // 인터페이스
 public interface LimvikService {
-	String getMessage();
+    String getMessage();
 }
 
 // 구현체
 @Service("advanced")
 public class SeahorseMessageService implements LimvikService {
 
-	@Override
-	public String getMessage() {
-		return "Seahorse is comming";
-	}
+    @Override
+    public String getMessage() {
+        return "Seahorse is comming";
+    }
 
 }
 ```
@@ -201,8 +201,8 @@ import com.limvik.precedence.service.AdvancedMessageService;
 public class AppConfig {
     @Bean
     public AdvancedMessageService messageService() {
-		return new AdvancedMessageService();
-	}
+        return new AdvancedMessageService();
+    }
 }
 ```
 
@@ -216,10 +216,10 @@ import com.limvik.precedence.limvikservice.SeahorseMessageService;
 
 @Configuration
 public class LimvikConfig {
-	@Bean
+    @Bean
     public SeahorseMessageService messageService() {
-		return new SeahorseMessageService();
-	}
+        return new SeahorseMessageService();
+    }
 }
 ```
 
@@ -231,15 +231,15 @@ public class LimvikConfig {
 @Component
 public class MessagePrinter {
 	
-	private MessageService messageService;
+    private MessageService messageService;
 	
-	MessagePrinter(@Qualifier("messageService") MessageService messageService) {
-		this.messageService = messageService;
-	}
+    MessagePrinter(@Qualifier("messageService") MessageService messageService) {
+        this.messageService = messageService;
+    }
 	
-	public void printMessages() {
-		System.out.println(messageService.getMessage());
-	}
+    public void printMessages() {
+        System.out.println(messageService.getMessage());
+    }
 	
 }
 ```
@@ -301,8 +301,8 @@ Consider defining a bean of type 'com.limvik.precedence.service.MessageService' 
 public class AppConfig {
     @Bean("please")
     public AdvancedMessageService messageService() {
-		return new AdvancedMessageService();
-	}
+        return new AdvancedMessageService();
+    }
 }
 ```
 
@@ -337,15 +337,15 @@ candidates를 찾기는 했는데, 주입은 못하겠답니다. 뭐지...?
 @Component
 public class MessagePrinter {
 	
-	private MessageService messageService;
+    private MessageService messageService;
 	
-	MessagePrinter(MessageService messageService) {
-		this.messageService = messageService;
-	}
+    MessagePrinter(MessageService messageService) {
+        this.messageService = messageService;
+    }
 	
-	public void printMessages() {
-		System.out.println(messageService.getMessage());
-	}
+    public void printMessages() {
+        System.out.println(messageService.getMessage());
+    }
 	
 }
 ```
@@ -356,18 +356,18 @@ public class MessagePrinter {
 
 ```java
 public class LimvikConfig {
-	@Bean
+    @Bean
     public SeahorseMessageService messageService() {
-		return new SeahorseMessageService();
-	}
+        return new SeahorseMessageService();
+    }
 }
 
 @Configuration
 public class AppConfig {
     @Bean
     public AdvancedMessageService messageService() {
-		return new AdvancedMessageService();
-	}
+        return new AdvancedMessageService();
+    }
 }
 ```
 
@@ -375,7 +375,7 @@ public class AppConfig {
 
 ```java
 MessagePrinter(@Qualifier("limvik") MessageService messageSericve) {
-	this.messageService = messageSericve;
+    this.messageService = messageSericve;
 }
 ```
 

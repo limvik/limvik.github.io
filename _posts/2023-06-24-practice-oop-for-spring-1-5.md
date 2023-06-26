@@ -297,11 +297,11 @@ public class DIContainer {
 
 예제를 제공해준 GPT-4 에 감사...
 
-이번에는 이전 Field 클래스의 set() 메서드 처럼 직관적이지가 않습니다. Constructor의 newInstance() 메서드는 공식 문서([링크](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/Constructor.html#newInstance%28java.lang.Object...%29))를 보면, public T newInstance(Object... initargs) 과 같이 초기화할 객체들을 여러개 받습니다. 그래서 이번 예제의 createInstance() 메서드는 annotation 된 constructor를 찾지 못한 경우 default constructor 를 호출하여 인스턴스를 생성하고, annotation 된 constructor가 있는 경우 해당 constructor의 parameter 를 찾아 인스턴스 배열을 만들고, Constructor의 newInstance() 메서드 인수로 넘깁니다.
+이번에는 이전 Field 클래스의 set() 메서드 처럼 직관적이지가 않습니다. Constructor의 newInstance() 메서드는 공식 문서([링크](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/reflect/Constructor.html#newInstance%28java.lang.Object...%29))를 보면, public T newInstance(Object... initargs) 와 같이 초기화할 객체들을 0개 이상 가변적으로 받을 수 있습니다. 그래서 이번 예제의 createInstance() 메서드는 annotation 된 constructor를 찾지 못한 경우 default constructor 를 호출하여 인스턴스를 생성하고, annotation 된 constructor가 있는 경우 해당 constructor의 parameter 를 찾아 인스턴스 배열을 만들고, Constructor의 newInstance() 메서드 인수로 넘깁니다.
 
 Field 에 강제로 접근 가능하게 만들고 의존성을 주입하는 것 보다 더 객체 지향적이라 판단됩니다.
 
-그리고 이번에는 Constructor에 여러 개의 파라미터가 있어도 잘 들어가는지 보기 위해 Injection 할 클래스를 만들어줍니다.
+그리고 이번에는 Constructor에 여러 개의 파라미터가 있어도 잘 들어가는지 보기 위해 Injection 할 클래스를 추가로 만들어줍니다.
 
 ```java
 public class Seahorse {
