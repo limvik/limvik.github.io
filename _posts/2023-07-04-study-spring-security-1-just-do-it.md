@@ -83,6 +83,29 @@ Username 에는 user, Password 에는 Command Line 에서 표시된 password 를
 
 ![웹 브라우저에 표시된 hello 문자열](/assets/img/2023-07-04-study-spring-security-1-just-do-it/03-hello-in-web-browser.png)
 
+참고로 방금 사용한 default user 와 관련된 코드는 Spring Boot Project의 UserDetailsServiceAutoConfiguration.java([Github 링크](https://github.com/spring-projects/spring-boot/blob/ce8253ea951eec2e857f3a9d9f6c3135029f91c8/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/security/servlet/UserDetailsServiceAutoConfiguration.java))와 SecurityProperties.java([Github 링크](https://github.com/spring-projects/spring-boot/blob/ce8253ea951eec2e857f3a9d9f6c3135029f91c8/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/security/SecurityProperties.java))에서 찾아보실 수 있습니다.
+
+```java
+
+// SecurityProperties.java
+
+// ...
+
+public static class User {
+
+    /**
+     * Default user name.
+     */
+    private String name = "user";
+
+    /**
+     * Password for the default user name.
+     */
+    private String password = UUID.randomUUID().toString();
+
+    // ...
+```
+
 ### Postman 을 이용한 HTTP GET Request
 
 RestController 를 사용하면서 브라우저 주소창에 직접 입력할 일은 없겠죠.
@@ -132,3 +155,6 @@ Spring Security 는 Spring 사용 시 보안 조치를 편하게 할 수 있는 
 ## Outro
 
 시간에 쫓기다보니 평소보다 글을 짧게 끊어서 작성해야겠습니다. Spring Security 말고도 정리해야할게 많은데 우선순위를 정하기가 쉽지 않습니다.
+
+## 참고자료
+- [Spring in Action 1st edition](https://www.manning.com/books/spring-security-in-action)
