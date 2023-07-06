@@ -71,7 +71,7 @@ Spring MVC를 배우기 시작할 때는 아래 같은 그림을 더 많이 보�
 
 ![Spring MVC Diagram](/assets/img/2023-07-06-study-spring-security-2-servlet-filter/04-spring-mvc-diagram.png)
 
-출처: [https://terasolunaorg.github.io/](guideline/5.0.1.RELEASE/en/Overview/SpringMVCOverview.html#overview-of-spring-mvc-processing-sequence)
+출처: [https://terasolunaorg.github.io/](https://terasolunaorg.github.io/guideline/5.0.1.RELEASE/en/Overview/SpringMVCOverview.html)
 
 Servlet Application에 적용하는 Spring Security는 Servlet Filter가 Spring Security 의 가장 큰 덩어리라고 생각해볼 수 있다고 판단돼서 Servlet Filter를 한 번 훑어보고 가겠습니다.
 
