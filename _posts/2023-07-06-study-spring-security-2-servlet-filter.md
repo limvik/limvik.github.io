@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Spring Security (2) 흐름 살펴보기 - Servlet Filter
+title: Spring Security (2) Servlet Filter
 categories:
 - Framework
 - Spring
@@ -23,7 +23,7 @@ date: 2023-07-06 16:44 +0900
 
 ## Spring Security 문서 살펴보기
 
-[RTFM](https://en.wikipedia.org/wiki/RTFM)(Read The Fucking Manual) 이라는 말이 있죠. 그래서 욕먹기 전에 문서부터 살펴보겠습다.
+[RTFM](https://en.wikipedia.org/wiki/RTFM)(Read The Fucking Manual) 이라는 말이 있죠. 그래서 욕먹기 전에 문서부터 살펴보겠습니다.
 
 ### Overview
 
@@ -190,8 +190,8 @@ Servlet Application 의 Architecture 문서([링크](https://docs.spring.io/spri
 >
 >Filter는 오직 다운스트림 Filter 인스턴스와 Servlet에만 영향을 미치므로 각 Filter가 호출되는 `순서`가 매우 중요합니다.
 
-Spring Security 의 가장 큰 껍데기는 Filter고, 하나의 Filter가 아닌 여러 개의 Filter 로 구성되어 있으며 Filter가 적용되는 순서가 중요하다는 것을 알 수 있습니다. Architecture 문서 조금만 내려보면 바로 조금 더 자세히 알 수 있습니다.
+Spring Security 의 가장 큰 껍데기는 Filter고, 하나의 Filter가 아닌 여러 개의 Filter 로 구성되어 있으며 Filter가 적용되는 순서가 중요하다는 것을 알 수 있습니다. Architecture 문서 조금만 내려보면 바로 더 자세한 내용을 볼 수 있습니다.
 
 ## Outro
 
-이번에는 이렇게 간단하게 Filter 를 살펴본 것으로 마무리 하려고합니다. Filter 라는 큰 덩어리를 살펴봤으니 다음에는 문서의 Architecture 와 관련된 내용을 훑어보면서 Spring Security에 어떤 종류의 Filter 가 있는지 살펴보겠습니다.
+이번에는 이렇게 간단하게 Filter를 살펴본 것으로 마무리 하려고합니다. Filter라는 큰 덩어리를 살펴봤으니 다음에는 문서의 Architecture와 관련된 내용을 훑어보면서 Spring Security에 어떤 종류의 Filter가 있는지 살펴보겠습니다.
