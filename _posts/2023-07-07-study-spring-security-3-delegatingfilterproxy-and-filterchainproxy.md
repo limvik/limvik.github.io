@@ -25,7 +25,7 @@ Servlet Filter에 대해 살펴봤던 [이전 글](https://limvik.github.io/post
 
 ### Bean Filter 를 바로 사용하지 않는 이유
 
-Bean Filter가 바로 나타나지 않고 한 번 감싼 이유는 Servlet Container 가 Spring의 Bean을 인식할 수 없기 때문입니다. 그래서 DelegatingFilterProxy가 하는 일은 클래스 이름에 맞게 할 일을 위임하는데, 그 위임 대상이 Bean Filter가 됩니다.
+Bean Filter가 바로 나타나지 않고 한 번 감싼 이유는 Servlet Container 가 Spring의 Bean을 인식할 수 없기 때문입니다. 그래서 DelegatingFilterProxy가 Servlet Container에 Filter로 등록된 후 클래스 이름에 맞게 할 일을 위임하는데, 일을 위임받는 대상이 Bean Filter가 됩니다.
 
 그리고 DelegatingFilterProxy 문서([링크](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/filter/DelegatingFilterProxy.html))를 보면 jakarta.servlet.Filter 인터페이스를 상속받고 있는 것을 알 수 있습니다.
 
