@@ -4,7 +4,7 @@ title: Spring Security (1) 맛보기
 categories:
 - Framework
 - Spring
-- Sprirng Security
+- Spring Security
 tags:
 - Spring
 - Spring Security
@@ -43,6 +43,8 @@ Spring Boot 3.1.1에 Spring Web 그리고 Spring Security 의존성을 추가한
 ![Spring Security 에 표시된 취약점 2개](/assets/img/2023-07-04-study-spring-security-1-just-do-it/01-vulnerability-in-spring-security.png)
 
 찝찝하긴 하지만 현재 저에겐 대안이 없으니 진행해 봅니다.
+
+>Spring Boot의 Github issue([링크](https://github.com/spring-projects/spring-boot/issues/33457))를 보니, application.yaml 파일을 parse 할 때만 써서 상관 없다고 합니다. 직접 SnakeYaml 사용해서 신뢰할 수 없는 소스를 parse 할 때는 알아서 해결책을 마련하라고 합니다.
 
 ### RestController
 

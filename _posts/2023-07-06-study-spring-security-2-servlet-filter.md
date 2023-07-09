@@ -4,7 +4,7 @@ title: Spring Security (2) Servlet Filter
 categories:
 - Framework
 - Spring
-- Sprirng Security
+- Spring Security
 tags:
 - Spring
 - Spring Security
