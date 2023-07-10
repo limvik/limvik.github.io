@@ -266,7 +266,9 @@ Did not set SecurityContextHolder since already authenticated UsernamePasswordAu
 만약 다이어그램 상의 Start Authentication 절차가 진행되는 경우 아래와 같은 절차가 진행됨을 문서에서 설명하고 있습니다.
 
 ① 인증된 사용자 정보가 저장되는 `SecurityContextHolder` 를 비우기
+
 ② `RequestCache` 에 인증 성공 시 되돌아갈 HttpServletRequest 를 저장
+
 ③ 로그인 페이지로 redirect 하거나 WWW-authenticate header 를 보내는 등 클라이언트로부터 인증 정보(credential)를 받기 위해 `AuthenticationEntryPoint` 사용
 
 > 참고: 401(Unauthorized) 응답을 생성하는 서버는 반드시 하나 이상의 챌린지가 포함된 WWW-Authenticate header 필드를 보내야 합니다. ([RFC 7235](https://datatracker.ietf.org/doc/html/rfc7235#section-4.1))
