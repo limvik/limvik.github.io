@@ -102,6 +102,14 @@ MyBatis가 지원하는 jdbcType 목록([링크](https://mybatis.org/mybatis-3/k
 
 MyBatis 문서는 한글이 더 어려워서, 번역기로 번역한 글을 넣었습니다.
 
+위에서 nullable 한 값에 대해서만 지정해야 한다고 적혀있는데, 예제에서는 Map을 사용하여 모두 nullable하니 jdbcType을 지정해주는게 오류를 줄이는 길인 것 같습니다.
+
+INTEGER type인 mode가 out인 parameter에 jdbcType을 지정하지 않으면 아래와 같은 예외가 던져집니다.
+
+```
+org.apache.ibatis.executor.ExecutorException: The JDBC Type must be specified for output parameter.  Parameter: deletedRowCount
+```
+
 ### 직접 Stored Procedure 호출하기
 
 테스트 삼아 직접 Stored Procedure를 호출해보려고 하는데, 출력 파라미터는 어떻게 줘야할지 잘 몰랐었습니다. 그래서 저와 같은 분이 있을거라 생각돼서 참고삼아 붙여넣습니다.

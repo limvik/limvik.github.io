@@ -215,6 +215,8 @@ Debugger로 확인해보면 ExceptionTranslationFilter 가 호출되는 것을 �
 
 ![Debugger로 확인한 ExceptionTranslationFilter 호출](/assets/img/2023-07-09-study-spring-security-5-check-logs-and-code/03-ExceptionTranslatinFilter-in-debugger.png)
 
+**다음 글을 쓰다가 Log가 안남는게 아니라 호출되지 않는 것을 발견했습니다. GET /Error 가 호출됐을 때 ExceptionTranslationFilter 가 호출된 것을 제가 착각한 것으로 보입니다. 추후 수정 예정입니다.**
+
 ExceptionTranslationFilter 에 대해 문서에 적힌 내용과 다이어그램을 다시 보면, [`AuthenticationException`](https://docs.spring.io/spring-security/site/docs/6.1.1/api//org/springframework/security/core/AuthenticationException.html)이 던져지는 경우 Start Authentication, [`AccessDeniedException`](https://docs.spring.io/spring-security/site/docs/6.1.1/api/org/springframework/security/access/AccessDeniedException.html)이 던져지는 경우 Access Denied로 흘러갑니다.
 
 ![ExceptionTranslationFilter 다이어그램](/assets/img/2023-07-09-study-spring-security-5-check-logs-and-code/02-ExceptionTranslationFilter.png)
