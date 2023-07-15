@@ -211,11 +211,10 @@ Architecture 문서([링크](https://docs.spring.io/spring-security/reference/se
 
 DefaultSecurityFilterChain 에 있는 15개의 Filter 중에 14번째 순번을 갖는 Filter 입니다. 그런데 앞서 실패했을 때 Log 에는 10번째 Filter인 BasicAuthenticationFilter 이후 다른 Filter에 대한 Log는 볼 수 없습니다.
 
-Debugger로 확인해보면 ExceptionTranslationFilter 가 호출되는 것을 볼 수 있습니다. 상황에 따라 Filter에서 Log가 안남는 경우가 있는 것으로 보입니다.
+~~Debugger로 확인해보면 ExceptionTranslationFilter 가 호출되는 것을 볼 수 있습니다. 상황에 따라 Filter에서 Log가 안남는 경우가 있는 것으로 보입니다.
+![Debugger로 확인한 ExceptionTranslationFilter 호출](/assets/img/2023-07-09-study-spring-security-5-check-logs-and-code/03-ExceptionTranslatinFilter-in-debugger.png)~~
 
-![Debugger로 확인한 ExceptionTranslationFilter 호출](/assets/img/2023-07-09-study-spring-security-5-check-logs-and-code/03-ExceptionTranslatinFilter-in-debugger.png)
-
-**다음 글을 쓰다가 Log가 안남는게 아니라 호출되지 않는 것을 발견했습니다. GET /Error 가 호출됐을 때 ExceptionTranslationFilter 가 호출된 것을 제가 착각한 것으로 보입니다. 추후 수정 예정입니다.**
+**다음 글을 쓰다가 Log가 안남는게 아니라 호출되지 않는 것을 발견했습니다. GET /Error 가 호출됐을 때 ExceptionTranslationFilter 가 호출된 것을 제가 착각한 것으로 보입니다. 다음 글을 참고 부탁드립니다.([링크](https://limvik.github.io/posts/study-spring-security-6-securitycontextholder/#:~:text=Debugger%20%EB%A5%BC%20%ED%86%B5%ED%95%B4%20%ED%99%95%EC%9D%B8%ED%95%98%EB%8B%88%20this.ignoreFailure%20%EB%8A%94%20false%20%EB%A1%9C%20%EC%84%A4%EC%A0%95%EB%90%98%EC%96%B4%20%EC%9E%88%EC%96%B4%EC%84%9C%20%EB%8B%A4%EC%9D%8C%20Filter%EB%8A%94%20%ED%98%B8%EC%B6%9C%EB%90%98%EC%A7%80%20%EC%95%8A%EB%8A%94%20%EA%B2%83%EC%9D%84%20%EB%B3%BC%20%EC%88%98%20%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4.))**
 
 ExceptionTranslationFilter 에 대해 문서에 적힌 내용과 다이어그램을 다시 보면, [`AuthenticationException`](https://docs.spring.io/spring-security/site/docs/6.1.1/api//org/springframework/security/core/AuthenticationException.html)이 던져지는 경우 Start Authentication, [`AccessDeniedException`](https://docs.spring.io/spring-security/site/docs/6.1.1/api/org/springframework/security/access/AccessDeniedException.html)이 던져지는 경우 Access Denied로 흘러갑니다.
 

@@ -149,7 +149,7 @@ Spring Security에서 Username/Password 방식을 이용한 인증에는 Form, B
 
 ![Spring Security 문서의 메뉴에 표시된 Username/Password 방식의 종류](/assets/img/2023-07-12-study-spring-security-6-SecurityContextHolder/02-spring-security-doc-menu.png)
 
-그 중에 살펴봐야 할 것은 Filter을 통해 알 수 있는 Basic 입니다.
+그 중에 살펴봐야 할 것은 BasicAuthenticationFilter 이름에도 써있어서 알 수 있는 Basic 입니다.
 
 [첫 번째 글](https://limvik.github.io/posts/study-spring-security-1-just-do-it/)에서 Authorization 헤더에 Basic 이라고 쓰고 공백을 하나둔 뒤에 Base64로 username:password 를 인코딩해서 보냈던 그 방식입니다.
 
