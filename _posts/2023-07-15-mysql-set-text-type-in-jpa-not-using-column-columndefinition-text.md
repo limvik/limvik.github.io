@@ -23,11 +23,11 @@ MySQL 을 사용해서 TEXT 타입을 설정하려고 찾아보니, 찾아본거
 
 ## 뭐가 문제야?
 
-JPA를 사용하는 이유가 데이터베이스에 대해 신경 쓸 부분을 줄여서 비즈니스 로직에 집중할 수 있게 해주는 장점이 있지만, 개인적으로는 이식성이 높다는 게 큰 장점 중에 하나가 아닌가 생각합니다.
+JPA를 사용함으로써 얻는 장점 중 하나로 데이터베이스에 대해 신경 쓸 부분을 줄여서, 비즈니스 로직에 집중할 수 있게 해주는 장점이 있습니다. 개인적으로는 여러 장점 중에 이식성이 높다는 게 큰 장점 중에 하나가 아닌가 생각합니다.
 
-그런데 @Column(columnDefinition = "TEXT") annotation을 사용해서 TEXT 타입을 컬럼의 데이터 타입으로 특정하면, TEXT 타입이 없는 데이터베이스로 마이그레이션할때는 또 하나씩 다 바꿔줘야하는 문제가 발생할 것으로 생각했습니다.
+그런데 @Column(columnDefinition = "TEXT") annotation을 사용해서 TEXT 타입을 컬럼의 데이터 타입으로 특정하면, TEXT 타입이 없는 데이터베이스로 마이그레이션할때는 또 하나씩 다 바꿔줘야하는 문제가 발생할 수 있다는 생각이 들었습니다.
 
-그래서 TEXT 타입이 있는 MySQL과 TEXT 타입이 없는 Oracle database 에서 @Column(columnDefinition = "TEXT")이 아닌 다른 annotation을 사용해서 MySQL의 TEXT 타입, Oracle의 유사한 타입인 CLOB 타입으로 설정하는 실험을 해봤습니다.
+그래서 TEXT 타입이 있는 MySQL과 TEXT 타입이 없는 Oracle database 에서 @Column(columnDefinition = "TEXT")가 아닌 다른 annotation을 사용해서 MySQL의 TEXT 타입, Oracle의 유사한 타입인 CLOB 타입으로 설정하는 실험을 해봤습니다.
 
 참고로 실행 환경은 Spring Boot 3.1.1과 Spring Data JPA/Hibernate 를 사용하였습니다.
 
@@ -37,7 +37,7 @@ JPA를 사용하는 이유가 데이터베이스에 대해 신경 쓸 부분을 
 
 ### @Lob
 
-검색해보면 쉽게 볼 수 있는 한 가지 방법인 @Lob 만 먼저 선언해보면, TEXT가 아닌 `TINYTEXT`로 설정이 되는 것을 볼 수 있습니다.
+검색해보면 쉽게 볼 수 있는 한 가지 방법인 @Lob 만 먼저 선언해보면, MySQL에서 TEXT가 아닌 `TINYTEXT`로 설정이 되는 것을 볼 수 있습니다.
 
 ```java
 @Data
@@ -132,6 +132,8 @@ MySQL 에서는 @Lob과 @Column에서 length 를 255보다 큰 값으로 설정�
 
 Oracle database 도 처음 써보는데, Docker 도 처음 써봐서 엄청 애를 먹었습니다. 저 같은 초보자를 위해 Oracle database 를 Docker 에서 세팅하는 방법을 글 최하단에 첨부하겠습니다.
 
+사용한 Oracle database 버전은 23c 입니다.
+
 먼저 앞서 실행했던 `Card` 클래스 그대로, Oracle database로 변경만 해서 실행한 결과 아래와 같이 clob 타입으로 설정되는 것을 볼 수 있습니다.
 
 >Hibernate: create table card (id number(19,0) generated as identity, `back varchar2(256 char)` not null, `front clob` not null, learner number(19,0), primary key (id))
@@ -161,11 +163,17 @@ private String front;
 
 > org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "create table card (id number(19,0) generated as identity, back varchar2(256 char) not null, front TEXT, learner number(19,0), primary key (id))" via JDBC [ORA-00902: 데이터유형이 부적합합니다]
 
-## Outro
+## 끝내려고 보니 다시 시작되는 궁금증
 
-TEXT 타입에 대한 이식성을 보장하자면, @Lob과 @Column(length = 256) 을 같이 선언해주는게 좋을 것 같습니다. 그런데 TEXT 타입에도 length를 지정할 수 있다고 문서에 써있었는데, TEXT 타입에 length를 지정하려면 @Column(columnDefinition = "TEXT(600)") 처럼 사용할 수 밖에 없겠습니다. TEXT 타입에 굳이 길이를 지정할 일이 있는지는 아직 경험이 부족해서 잘 모르겠습니다. GPT-3.5는 TEXT 타입은 길이 지정 안된다고 우기네요.
+TEXT 타입에 대한 이식성을 보장하려면, @Lob과 @Column(length = 256) 을 같이 선언해주는게 좋을 것 같습니다. 그런데 TEXT 타입에도 length를 지정할 수 있다고 문서에 써있었는데, TEXT 타입에 length를 지정하려면 @Column(columnDefinition = "TEXT(600)") 처럼 사용할 수 밖에 없겠습니다. TEXT 타입에 굳이 길이를 지정할 일이 있는지는 아직 경험이 부족해서 잘 모르겠습니다. GPT-3.5는 TEXT 타입은 길이 지정 안된다고 우겨서, 실험해봤더니 TEXT Type 뒤에 legnth를 지정해도, length 설정이 안됩니다.
 
-MySQL 문서([링크](https://dev.mysql.com/doc/refman/8.0/en/column-count-limit.html#:~:text=Row%20Size%20Limit%20Examples))에 관련 예제가 있기는 합니다. 예제에서 VARCHAR 타입은 하나의 row에 사용할 수 있는 최대 사이즈가 65,535 bytes 여서, TEXT 타입을 같이 섞어서 사용합니다.
+MySQL 문서([링크](https://dev.mysql.com/doc/refman/8.0/en/column-count-limit.html#:~:text=Row%20Size%20Limit%20Examples))에 관련 예제가 있기는 합니다. 
+
+문서에서 참고할만한 내용은 아래와 같습니다.
+
+>스토리지 엔진이 더 큰 행을 지원할 수 있는 경우에도 MySQL 테이블의 내부 표현에는 최대 행 크기 제한이 65,535바이트로 설정되어 있습니다. BLOB 및 TEXT 열은 콘텐츠가 나머지 행과 별도로 저장되므로 행 크기 제한에 9~12바이트만 기여합니다.
+
+그리고 VARCHAR 타입으로 65,535바이트 넘는 것을 방지하기 위해 TEXT 타입을 같이 섞어서 사용합니다.
 
 ```sql
 mysql> CREATE TABLE t (a VARCHAR(10000), b VARCHAR(10000),
@@ -181,11 +189,50 @@ mysql> CREATE TABLE t (a VARCHAR(10000), b VARCHAR(10000),
 Query OK, 0 rows affected (0.02 sec)
 ```
 
-개인적으로는 MySQL도 @Lob만 사용하면 TEXT 타입으로 하고, @Column 을 같이 사용할 때 length 속성이 TEXT 타입의 길이가 되는게 맞지 않을까 싶기는 한데, 이제 막 써본 상태에서 결론을 내리기는 어려울 것 같습니다.
+그런데 직접 실험해본 결과 TEXT에 length 를 255보다는 크면서(255 보다 작게 하면 자동으로 TINYTEXT로 지정), 65,535 이하인 값으로 설정하면 얼마를 설정하든 최대 길이는 65,535 이기 때문에, TEXT에 length를 설정하는 것은 별 의미가 없었습니다. 
 
-그리고 아래는 앞서 말씀드린대로 Docker와 Oracle database 처음 써보시는 분들을 위해 세팅 방법을 추가로 첨부합니다.
+컬럼의 최대 길이는 아래 sql을 입력해서 확인할 수 있습니다.
 
-뭔가 뻘짓을 거하게 한 것 같지만, 미루고 미루던 Docker 사용을 해봤으니 조금이나마 위로가 됩니다.
+```sql
+SELECT *
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA = '데이터베이스 또는 스키마 이름' AND TABLE_NAME = '테이블 이름';
+```
+
+### 꼬리에 꼬리를 무는 의문
+
+MySQL에는 TEXT 보다 큰 MEDIUMTEXT와 LONGTEXT가 있습니다. 그럼 이거는 어떻게 해야하나 의문이 듭니다.
+
+혹시나 해서 @Column의 length를 2^16보다 1 큰 값인 65_536 으로 해보니 MEDIUMTEXT 타입으로 지정이 됩니다.
+
+>Hibernate: create table card (id bigint not null auto_increment, learner bigint, back varchar(256) not null, `front mediumtext` not null, primary key (id)) engine=InnoDB
+
+그리고 2^24보다 1 큰 값인 16_777_217 을 length에 지정하니 LONGTEXT 타입으로 지정이 됩니다.
+
+>Hibernate: create table card (id bigint not null auto_increment, learner bigint, back varchar(256) not null, `front longtext` not null, primary key (id)) engine=InnoDB
+
+그리고 Oracle database 에서 CLOB에 길이를 지정해보니 길이를 지정할 수 없다고 오류가 발생합니다.
+
+```sql
+create table test (test CLOB(500));
+```
+
+>ERROR at line 1:
+>ORA-03074: Size cannot be specified for data type CLOB.
+
+Hibernate가 @Lob 과 @Column 을 같이 사용할 때 length 를 지정해도 Oracle database 인 경우에는 알아서 무시해준 것이었습니다.
+
+뭣도 모르고 할 때는 Hibernate에 아쉬움을 느꼈다가 마지막엔 Hibernate 가 정말 잘 만들었음을 느끼고 마무리하게 됩니다.
+
+갑자기 또 postgreSQL 도 궁금해지는데... 궁금하면 차라리 나중에 코드를 까보는게 나을 것 같습니다.
+
+## Outro
+
+가볍게 팁 공유하려고 시작했는데, 쓸데 없이 길어졌습니다. 이럴거면 애초에 코드를 까볼걸 후회가됩니다.
+
+아래는 앞서 말씀드린대로 Docker와 Oracle database 처음 써보시는 분들을 위해 세팅 방법을 추가로 첨부합니다.
+
+뻘짓을 거하게 한 것 같지만, 격하게 설치하기 싫던 Oracle database 를 사용하기 위해, 미루고 미루던 Docker 사용을 해봤으니 조금이나마 위로가 됩니다.
 
 ## Oracle Database 세팅 방법
 
