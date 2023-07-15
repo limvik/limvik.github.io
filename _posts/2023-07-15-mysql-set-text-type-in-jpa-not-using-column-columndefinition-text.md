@@ -165,7 +165,7 @@ private String front;
 
 ## 끝내려고 보니 다시 시작되는 궁금증
 
-TEXT 타입에 대한 이식성을 보장하려면, @Lob과 @Column(length = 256) 을 같이 선언해주는게 좋을 것 같습니다. 그런데 TEXT 타입에도 length를 지정할 수 있다고 문서에 써있었는데, TEXT 타입에 length를 지정하려면 @Column(columnDefinition = "TEXT(600)") 처럼 사용할 수 밖에 없겠습니다. TEXT 타입에 굳이 길이를 지정할 일이 있는지는 아직 경험이 부족해서 잘 모르겠습니다. GPT-3.5는 TEXT 타입은 길이 지정 안된다고 우겨서, 실험해봤더니 TEXT Type 뒤에 legnth를 지정해도, length 설정이 안됩니다.
+TEXT 타입에 대한 이식성을 보장하려면, @Lob과 @Column(length = 256) 을 같이 선언해주는게 좋을 것 같습니다. 그런데 TEXT 타입에도 length를 지정할 수 있다고 문서에 써있었는데, GPT-3.5는 TEXT 타입은 길이 지정 안된다고 우겨서, 실험해봤더니 TEXT Type 뒤에 legnth를 지정해도, VARCHAR처럼 세세하게 length 설정이 안됩니다.
 
 MySQL 문서([링크](https://dev.mysql.com/doc/refman/8.0/en/column-count-limit.html#:~:text=Row%20Size%20Limit%20Examples))에 관련 예제가 있기는 합니다. 
 
@@ -173,7 +173,7 @@ MySQL 문서([링크](https://dev.mysql.com/doc/refman/8.0/en/column-count-limit
 
 >스토리지 엔진이 더 큰 행을 지원할 수 있는 경우에도 MySQL 테이블의 내부 표현에는 최대 행 크기 제한이 65,535바이트로 설정되어 있습니다. BLOB 및 TEXT 열은 콘텐츠가 나머지 행과 별도로 저장되므로 행 크기 제한에 9~12바이트만 기여합니다.
 
-그리고 VARCHAR 타입으로 65,535바이트 넘는 것을 방지하기 위해 TEXT 타입을 같이 섞어서 사용합니다.
+그리고 예제로 주어진 sql에서는 VARCHAR 타입으로 한 행에서 65,535바이트가 넘는 것을 방지하기 위해 TEXT 타입을 같이 섞어서 사용합니다.
 
 ```sql
 mysql> CREATE TABLE t (a VARCHAR(10000), b VARCHAR(10000),
@@ -189,7 +189,7 @@ mysql> CREATE TABLE t (a VARCHAR(10000), b VARCHAR(10000),
 Query OK, 0 rows affected (0.02 sec)
 ```
 
-그런데 직접 실험해본 결과 TEXT에 length 를 255보다는 크면서(255 보다 작게 하면 자동으로 TINYTEXT로 지정), 65,535 이하인 값으로 설정하면 얼마를 설정하든 최대 길이는 65,535 이기 때문에, TEXT에 length를 설정하는 것은 별 의미가 없었습니다. 
+그런데 직접 실험해본 결과 TEXT에 length 를 255보다는 크면서(255 이하로 설정하면 자동으로 TINYTEXT로 지정), 65,535 이하인 값으로 설정하면 얼마를 설정하든 최대 길이는 65,535 이기 때문에, TEXT에 length를 설정하는 것은 별 의미가 없었습니다. 
 
 컬럼의 최대 길이는 아래 sql을 입력해서 확인할 수 있습니다.
 
