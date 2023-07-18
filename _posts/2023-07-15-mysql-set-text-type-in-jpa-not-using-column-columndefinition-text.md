@@ -230,6 +230,14 @@ Hibernate가 @Lob 과 @Column 을 같이 사용할 때 length 를 지정해도 O
 
 가볍게 팁 공유하려고 시작했는데, 쓸데 없이 길어졌습니다. 이럴거면 애초에 코드를 까볼걸 후회가됩니다.
 
+MySQL 사용할 때 TEXT를 사용할거면 최대값인 65_535를 length로 지정하는게 의도가 더 확실한 것 같아서 저는 65_535를 쓰기로 했습니다.
+
+글이 원래도 난장판이지만 더 난장판이 됐습니다. 올린 글을 내려야 하나 심각하게 고민이됩니다.
+
+방문자는 없으니 일단 두는걸로...
+
+JPA가 문제가 아니라 주로 사용하는 MySQL에 대해서도 잘 모르고 있었다는 사실을 다시 한 번 확인하는 기회였습니다.
+
 아래는 앞서 말씀드린대로 Docker와 Oracle database 처음 써보시는 분들을 위해 세팅 방법을 추가로 첨부합니다.
 
 뻘짓을 거하게 한 것 같지만, 격하게 설치하기 싫던 Oracle database 를 사용하기 위해, 미루고 미루던 Docker 사용을 해봤으니 조금이나마 위로가 됩니다.
@@ -238,9 +246,9 @@ Hibernate가 @Lob 과 @Column 을 같이 사용할 때 length 를 지정해도 O
 
 제가 Windows 11을 사용하므로, Windows 11을 기준으로 설명드립니다.
 
-개발자용으로 Oracle database는 23c를 무료로 제공한다는 글([링크](https://blogs.oracle.com/database/post/oracle-database-23c-free))이 있어서, 다운로드 페이지([링크](https://www.oracle.com/database/free/download/))를 참고하여 Docker image를 다운받았습니다.
-
 Docker 가 설치되어 있지 않다면, Docker Desktop([링크](https://www.docker.com/products/docker-desktop/)) 을 설치합니다. 설치하고 나면 Windows 에서도 powershell 이나 command prompt 에서 docker 명령어를 사용할 수 있습니다.
+
+개발자용으로 Oracle database는 23c를 무료로 제공한다는 글([링크](https://blogs.oracle.com/database/post/oracle-database-23c-free))이 있어서, 다운로드 페이지([링크](https://www.oracle.com/database/free/download/))를 참고하여 Docker image를 다운받았습니다.
 
 ### docker image 다운로드
 
