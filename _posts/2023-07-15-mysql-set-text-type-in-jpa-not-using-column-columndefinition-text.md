@@ -29,7 +29,7 @@ JPA를 사용함으로써 얻는 장점 중 하나로 데이터베이스에 대�
 
 그래서 TEXT 타입이 있는 MySQL과 TEXT 타입이 없는 Oracle database 에서 @Column(columnDefinition = "TEXT")가 아닌 다른 annotation을 사용해서 MySQL의 TEXT 타입, Oracle의 유사한 타입인 CLOB 타입으로 설정하는 실험을 해봤습니다.
 
-참고로 실행 환경은 Spring Boot 3.1.1과 Spring Data JPA/Hibernate 를 사용하였습니다.
+참고로 실행 환경은 Spring Boot 3.1.1, Spring Data JPA/Hibernate, MySQL 8.0.32, Oracle Database 23c(Docker), Windows 11을 사용하였습니다.
 
 ## JPA with MySQL
 
@@ -226,11 +226,33 @@ Hibernate가 @Lob 과 @Column 을 같이 사용할 때 length 를 지정해도 O
 
 갑자기 또 postgreSQL 도 궁금해지는데... 궁금하면 차라리 나중에 코드를 까보는게 나을 것 같습니다.
 
+## 정리
+
+글이 너무 난잡해져서 정리하고 마무리 해야겠습니다.
+
+String type의 field에 @Lob 을 지정하면, 데이터베이스에서 문자열을 저장할 수 있는 가장 큰 자료형이 지정됩니다.
+
+Oracle Database에서는 문자열을 저장하는 가장 큰 자료형이 한 가지라 CLOB으로 지정이 됩니다.
+
+MySQL 의 경우 TEXT가 문자열을 저장하는 가장 큰 자료형이지만, TEXT의 종류로 TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT가 있기 때문에 TEXT에 길이를 지정하여 길이에 따른 TEXT 종류를 지정할 수 있습니다. (SQL 사용시에는 직접 구체적인 TEXT 타입을 지정할 수 있습니다.)
+
+JPA에서 field에 지정되는 length의 기본값은 255이고, @Column annotation을 통해 변경할 수 있습니다. 그리고 255는 TINYTEXT의 최대값이기 때문에, @Lob만 사용하는 경우 length가 255인 값을 저장할 수 있을 만큼 충분히 크면서, 가장 작은 TEXT 타입인 TINYTEXT 타입이 지정됩니다.
+
+한 단계 더 큰 타입인 TEXT 타입을 사용하려면, @Lob과 함께 @Column의 length를 256 이상, 65_535 이하로 설정하여야 합니다.( @Column(length = 256 ~ 65_535) )
+
+MEDIUMTEXT나 LONGTEXT는 그보다 큰 값을 사용하여 지정할 수 있습니다.
+
+---
+
+앞서 봤던 MySQL 문서에서 TEXT 타입에 나온 아래 설명을 처음에 제대로 이해 못해서 혼란스러웠던 것 같습니다.
+
+>이 타입에 대해 선택적 길이 `M`을 지정할 수 있습니다. 이렇게 하면 MySQL은 값을 `M`만큼의 길이로 저장할 수 있을 만큼 충분히 큰 가장 작은 TEXT 유형으로 열을 생성합니다.
+
 ## Outro
 
-가볍게 팁 공유하려고 시작했는데, 쓸데 없이 길어졌습니다. 이럴거면 애초에 코드를 까볼걸 후회가됩니다.
+가볍게 팁 공유하려고 시작했는데, 쓸데 없이 길어졌습니다. 이럴거면 애초에 코드를 까볼걸 후회가됩니다. 그러고서 더 혼란스러워졌을지도...?
 
-MySQL 사용할 때 TEXT를 사용할거면 최대값인 65_535를 length로 지정하는게 의도가 더 확실한 것 같아서 저는 65_535를 쓰기로 했습니다.
+MySQL 사용할 때 TEXT를 사용할거면 최대값인 65_535를 length로 지정하는게 의도가 더 확실한 것 같아서, 저는 @Lob과 함께 @Column에 length를 65_535로 지정하여 쓰기로 했습니다.
 
 글이 원래도 난장판이지만 더 난장판이 됐습니다. 올린 글을 내려야 하나 심각하게 고민이됩니다.
 

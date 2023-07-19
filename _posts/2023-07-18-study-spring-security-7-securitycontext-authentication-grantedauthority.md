@@ -167,7 +167,7 @@ High-Level Permissions 의 예제를 보고 나니, "ROLE_USER" 라고 선언해
 
 >You can obtain `GrantedAuthority` instances from the [`Authentication.getAuthorities()`](https://docs.spring.io/spring-security/reference/servlet/authentication/architecture.html#servlet-authentication-authentication) method. This method provides a `Collection` of `GrantedAuthority` objects. A `GrantedAuthority` is, not surprisingly, an authority that is granted to the principal. Such authorities are usually “roles”, such as `ROLE_ADMINISTRATOR` or `ROLE_HR_SUPERVISOR`. These roles are later configured for web authorization, method authorization, and domain object authorization. Other parts of Spring Security interpret these authorities and expect them to be present. When using username/password based authentication `GrantedAuthority` instances are usually loaded by the [`UserDetailsService`](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/user-details-service.html#servlet-authentication-userdetailsservice).
 
-앞에서 Authentication interface 의 코드를 통해 봤던 것 처럼 GrantedAuthority 를 Collection 으로 가져오고, "ROLE_" prefix 를 붙여서 역할에 따라 권한을 부여한다고 합니다. prefix만 붙여주면 자유롭게 ROLE을 부여하고 있는 것을 알 수 있습니다.
+앞에서 Authentication interface 의 코드를 통해 봤던 것 처럼 GrantedAuthority 를 Collection 으로 가져올 수 있고, authority는 principal에 부여되며, "ROLE_" prefix 를 붙여서 역할에 따라 권한을 부여한다고 합니다. prefix만 붙여주면 자유롭게 ROLE을 부여하고 있는 것을 알 수 있습니다.
 
 web authorization, method authorization, domain object authorization 을 구성한다는 내용은 뒤에가서 구체적인 코드와 함께 살펴봐야하겠습니다.
 
