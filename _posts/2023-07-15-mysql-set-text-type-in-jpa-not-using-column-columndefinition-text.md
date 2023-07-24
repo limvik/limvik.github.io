@@ -19,7 +19,7 @@ Spring을 공부하고 있다보니 JPA가 너무 자주보여서 궁금해서 �
 
 MySQL 을 사용해서 TEXT 타입을 설정하려고 찾아보니, 찾아본거에 한해서는 대체로 @Lob이나 @Column(columnDefinition = "TEXT")를 설정하라고 합니다.
 
-그런데 MySQL에서는 @Lob만 설정하면 TEXT가 안되고, columnDefinition에 TEXT를 지정하는 건 뭔가 마음에 안듭니다.
+그런데 MySQL에서는 @Lob만 설정하면 TINYTEXT가 돼버리고, columnDefinition에 TEXT를 지정하는 건 뭔가 마음에 안듭니다.
 
 ## 뭐가 문제야?
 
@@ -189,7 +189,7 @@ mysql> CREATE TABLE t (a VARCHAR(10000), b VARCHAR(10000),
 Query OK, 0 rows affected (0.02 sec)
 ```
 
-그런데 직접 실험해본 결과 TEXT에 length 를 255보다는 크면서(255 이하로 설정하면 자동으로 TINYTEXT로 지정), 65,535 이하인 값으로 설정하면 얼마를 설정하든 최대 길이는 65,535 이기 때문에, TEXT에 length를 설정하는 것은 별 의미가 없었습니다. 
+그런데 직접 실험해본 결과 TEXT에 length 를 255보다는 크면서(255 이하로 설정하면 자동으로 TINYTEXT로 지정), 65,535 이하인 값으로 설정하면 얼마를 설정하든 최대 길이는 65,535 이기 때문에, TEXT에 length를 설정하는 것은 범위 내의 값인 경우 별 의미가 없었습니다. 
 
 컬럼의 최대 길이는 아래 sql을 입력해서 확인할 수 있습니다.
 
@@ -228,7 +228,7 @@ Hibernate가 @Lob 과 @Column 을 같이 사용할 때 length 를 지정해도 O
 
 ## 정리
 
-글이 너무 난잡해져서 정리하고 마무리 해야겠습니다.
+여러번 수정하다보니 글이 너무 난잡해져서 정리하고 마무리 해야겠습니다.
 
 String type의 field에 @Lob 을 지정하면, 데이터베이스에서 문자열을 저장할 수 있는 가장 큰 자료형이 지정됩니다.
 
@@ -238,7 +238,7 @@ MySQL 의 경우 TEXT가 문자열을 저장하는 가장 큰 자료형이지만
 
 JPA에서 field에 지정되는 length의 기본값은 255이고, @Column annotation을 통해 변경할 수 있습니다. 그리고 255는 TINYTEXT의 최대값이기 때문에, @Lob만 사용하는 경우 length가 255인 값을 저장할 수 있을 만큼 충분히 크면서, 가장 작은 TEXT 타입인 TINYTEXT 타입이 지정됩니다.
 
-한 단계 더 큰 타입인 TEXT 타입을 사용하려면, @Lob과 함께 @Column의 length를 256 이상, 65_535 이하로 설정하여야 합니다.( @Column(length = 256 ~ 65_535) )
+TINYTEXT보다 한 단계 더 큰 타입인 TEXT 타입을 사용하려면, @Lob과 함께 @Column의 length를 256 이상, 65_535 이하로 설정하여야 합니다.( @Column(length = 256 ~ 65_535) )
 
 MEDIUMTEXT나 LONGTEXT는 그보다 큰 값을 사용하여 지정할 수 있습니다.
 
