@@ -107,7 +107,7 @@ MessagePrinter(MessageService messageService) {
     this.messageService = messageService;
 }
 ```
-굳이 이걸로는 일부러 오류를 발생시켜보지는 않았더니, 오류 메시지를 처음 봤습니다. 책에서 처음 봤던 @Primary 혹은 @Qualifier 를 사용하라는 action 메시지도 있습니다.
+평소에는 굳이 이걸로는 일부러 오류를 발생시켜보지는 않았더니, 오류 메시지를 처음 봤습니다. 책에서 처음 봤던 @Primary 혹은 @Qualifier 를 사용하라는 action 메시지도 있습니다.
 ```
 ***************************
 APPLICATION FAILED TO START
