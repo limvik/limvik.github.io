@@ -57,7 +57,7 @@ public ResponseEntity<Void> logout(HttpServletRequest request) {
 - /rest/{versionId}/admin/logout
 - https://\<host>:\<port>/SKLM/rest/v1/ckms/logout
 
-signout 같은 약간의 변형이 있기는 하지만, 동사인 logout을 사용합니다.
+signout 같은 약간의 변형이 있기는 하지만, 모두 동사를 사용합니다.
 
 ## 수정하기
 

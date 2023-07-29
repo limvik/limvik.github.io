@@ -97,11 +97,11 @@ SecurityContextHolder는 SecurityContextHolderStrategy 에 static 메서드를 �
 
 아마 책 예제에는 로그인 유지 기능이 없어서 그랬던 것 같습니다.
 
-구글 검색 결과 1페이지에 있는 블로그만 간단하게 살펴봤는데, 딱히 눈에 들어오는게 없어서 공식 문서를 살펴봤습니다.
+다른 Spring Security 로그아웃 방식을 살펴보려고 구글 검색 결과 1페이지에 있는 블로그만 간단하게 살펴봤는데, 딱히 눈에 들어오는게 없어서 공식 문서를 살펴봤습니다.
 
 ## Handling Logouts
 
-공식 문서 Logout([링크](https://docs.spring.io/spring-security/reference/servlet/authentication/logout.html))를 보면, Spring Security 기본설정으로 로그아웃 기능을 이용하면 GET 또는 POST 방식으로 /logout 경로에 요청 시 로그아웃 절차를 수행한다고 하며, GET /logout 으로 접근하면 로그아웃 확인 페이지를 보여주는데, 사용할 필요 없다고 합니다.
+공식 문서 Logout([링크](https://docs.spring.io/spring-security/reference/servlet/authentication/logout.html))를 보면, Spring Security 기본설정으로 로그아웃 기능을 이용하면 GET 또는 POST 방식으로 /logout 경로에 요청 시 로그아웃 절차를 수행한다고 하며, GET /logout 으로 접근하면 로그아웃 확인 페이지를 보여주는데, 어플리케이션에서 사용할 필요 없다고 합니다.
 
 ![기본 로그아웃 화면](/assets/img/2023-07-26-spring-security-logout-operation/02-default-logout-template.png)
 
