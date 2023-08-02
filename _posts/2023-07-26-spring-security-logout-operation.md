@@ -12,9 +12,9 @@ date: 2023-07-26 21:03 +0900
 ---
 ## Intro
 
-Spring Security 를 차근차근 하나씩 보고싶지만, 구현하기도 해야하니 Logout 절차 문서를 간단하게 살펴봤습니다.
+Spring Security 를 차근차근 하나씩 보고싶지만, 구현하기도 해야하니 기존에 작성하던 순서를 건너뛰어 Logout 절차 문서를 먼저 간단하게 살펴봤습니다.
 
-구현을 한지 좀 됐지만, 감에 의한 구현으로 뭔가 찝찝해서 문서를 다시 살펴봤습니다.
+어설프게 나마 Logout API를 구현을 한지 좀 됐지만, 감에 의한 구현으로 뭔가 찝찝하기도 하고, 문제도 있어서 문서를 다시 살펴보면서 새롭게 구현했습니다.
 
 ## 요약
 
@@ -142,7 +142,7 @@ Once completed, then it will exercise its default  [`LogoutSuccessHandler`](http
 >
 >Typically, this means that the  `SecurityContextHolder`  is cleared out, the  `HttpSession`  is invalidated, any “Remember Me” authentication is cleaned up, and so on. However, the configured  `LogoutHandler`  implementations vary, depending on your Spring Security configuration. Note that, after  `HttpServletRequest.logout()`  has been invoked, you are still in charge of writing out a response. Typically, this would involve a redirect to the welcome page.
 
-wecome page 로 redirect 하는 등의 처리는 알아서 해줘야 한다고 하는데, 딱 제가 원하던 겁니다. 그리고 SecurityContextLogoutHandler 의 logout 메서드 뿐만 아니라 다른 정보들도 처리해준다는 것을 알 수 있습니다.
+welcome page 로 redirect 하는 등의 처리는 알아서 해줘야 한다고 하는데, 딱 제가 원하던 겁니다. 그리고 SecurityContextLogoutHandler 의 logout 메서드 뿐만 아니라 다른 정보들도 처리해준다는 것을 알 수 있습니다.
 
 ### 코드 살펴보기
 
@@ -173,7 +173,7 @@ private class Servlet3SecurityContextHolderAwareRequestWrapper extends SecurityC
 
 코드를 살펴보면 Logout handler 가 없으면 상위 logout 메서드를 호출하고, 있는 경우에는 모든 Logout handlers를 가져와서 각 handler 의 logout 메서드를 호출합니다.
 
-디버거를 이용해서 살펴보면, 저는 별달리 Logout handler 를 custom 해서 추가하거나 한게 없기 때문에, 앞서 봤던 POST /logout 요청 시의 기본 동작에서 봤던 handlers를 볼 수 있습니다. 단독으로 직접 호출했던 SecurityContxtLogoutHandler가 눈에 들어옵니다.
+디버거를 이용해서 살펴보면, 저는 별달리 Logout handler 를 custom 해서 추가하거나 한게 없기 때문에, 앞서 POST /logout 요청 시의 기본 동작에서 봤던 handlers를 볼 수 있습니다. 기존에 단독으로 직접 호출했던 SecurityContextLogoutHandler가 눈에 들어옵니다.
 
 ![디버거를 이용해서 본 기본 Logout handlers](/assets/img/2023-07-26-spring-security-logout-operation/04-servlet-logout.png)
 
