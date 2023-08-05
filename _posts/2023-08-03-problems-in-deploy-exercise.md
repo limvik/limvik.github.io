@@ -206,6 +206,10 @@ export SPRING_DATASOURCE_DRIVER=com.mysql.cj.jdbc.Driver
 
 그러면 재부팅 시에도 명령어에 따라 환경 변수가 자동으로 추가됩니다.
 
+### Vault
+
+이와 관련된 `[Vault](https://developer.hashicorp.com/vault)` 가 있다는 사실을 알게 됐고, [Spring Vault](https://spring.io/projects/spring-vault)도 있어서 메모 겸 남겨둡니다.
+
 ## Outro
 
 막상 쓰고보니 별거 없는데, 쓸데 없이 시간 쓴 것 같은 느낌도 듭니다.
