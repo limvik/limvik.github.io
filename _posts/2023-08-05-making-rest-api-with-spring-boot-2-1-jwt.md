@@ -409,7 +409,7 @@ JWE 는 JWS 구조와 다릅니다. 그림은 4를 건너 뛰었는데, 출처�
 - JSON Web Tokens as Building Blocks for Cloud Security([링크](https://www.ibm.com/blog/json-web-tokens-as-building-blocks-for-cloud-security/))
 - Token Authentication([링크](https://www.logintc.com/types-of-authentication/token-authentication/))
 - jwt.io([링크](https://jwt.io/))
-- JWT 토큰 기반 인증에 대한 소개([링크](%5BJWT%5D%20%ED%86%A0%ED%81%B0%28Token%29%20%EA%B8%B0%EB%B0%98%20%EC%9D%B8%EC%A6%9D%EC%97%90%20%EB%8C%80%ED%95%9C%20%EC%86%8C%EA%B0%9C))
+- JWT 토큰 기반 인증에 대한 소개([링크](https://velopert.com/2350))
 - Spring Security JWT 토큰으로 인증하기([링크](https://petaverse.pe.kr/entry/Spring-Security-JWT-%ED%86%A0%ED%81%B0%EC%9C%BC%EB%A1%9C-%EC%9D%B8%EC%A6%9D%ED%95%98%EA%B8%B0?category=1113161))
 - String based data encoding: Base64 vs Base64url([링크](https://stackoverflow.com/questions/55389211/string-based-data-encoding-base64-vs-base64url))
 - 구글 맵 URL 인코딩([링크](https://developers.google.com/maps/url-encoding?hl=ko))
