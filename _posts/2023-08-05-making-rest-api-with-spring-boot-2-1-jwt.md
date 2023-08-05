@@ -144,9 +144,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3O
 
 GPT가 준 URL에서 사용한 예제는 아래와 같습니다. email 확인 링크를 보낼때 claims에 이메일 주소를 넣어 url query parameter를 통해 보내는 예제입니다.
 
-```
-https://example.com/confirm-email?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE2MDUxNzU4OTIsImV4cCI6MTYwNTE4MzA5Mn0.A9G_WUqabZn_3hNQPZTgS1K1S9HaoQIGtSowuhcXfL4
-```
+![Example JWT in URL QUERY PARAMETER](/assets/img/2023-08-05-making-rest-api-with-spring-boot-2-1-jwt/04-jwt-in-url-query-parameter.png)
 
 GPT가 링크만 줬는데, Decode 해보면 아래와 같은 JSON이 됩니다.
 
