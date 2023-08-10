@@ -114,6 +114,13 @@ Issue 를 올렸더니 직접 PR 을 올려줄 수 있겠냐는 응답이 왔습
 
 ![링크 수정 PR이 merge 됐음을 알리는 email](/assets/img/2023-08-09-first-contribution-to-spring-security/03-mail2.png)
 
+커밋 목록에 제꺼가 있으니까 뭔가 뿌듯 합니다.
+
+![커밋 목록1](/assets/img/2023-08-09-first-contribution-to-spring-security/04-commit-list-1.png)
+
+![커밋 목록2](/assets/img/2023-08-09-first-contribution-to-spring-security/05-commit-list-2.png)
+
+
 ## Outro
 
 오픈소스에 기여하면서 Git, Github 도 배우고, Java의 몰랐던 기능도 배울 수 있는 좋은 기회였던 것 같습니다. 그런데 지금 다시 보니 PR 올릴 때, 왜 이렇게 수정해야되는지 자세히 적지 않아 조금 아쉬운 것 같습니다. 사소한 것이다 보니 이번에는 merge가 되긴 했지만, 다음에는 왜 이렇게 변경해야 되는지, 그리고 변경을 통해 무엇을 얻을 수 있는지 PR 을 작성하면서 같이 작성하는 것도 좋은 연습이 될 것 같습니다.
