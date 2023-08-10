@@ -1377,6 +1377,16 @@ private String content;
 
 ![Postman 에서 정상적인 게시글 추가 요청한 화면](/assets/img/2023-08-10-making-rest-api-with-spring-boot-3-create-a-new-post/04-valid-post.png)
 
+## 끝일까?
+
+글까지 모두 올리고나서 갑자기 테스트 코드에 글이 잘 저장됐는지 검사하는 코드를 작성하지 않았던게 생각납니다.
+
+혹시나 해서 데이터베이스를 확인해보니, user_id 가 저장이 안돼있습니다.
+
+![MySQL Workbench에서 확인한 데이터 저장 상태 화면](/assets/img/2023-08-10-making-rest-api-with-spring-boot-3-create-a-new-post/05-null-userid.png)
+
+내일 테스트 코드를 작성하고, 원인을 찾아서 수정해야겠습니다.
+
 ## Outro
 
 이번에는 그냥 잘못 코딩하고 수정하는 과정까지 그냥 쭉 써내려갔더니 글이 더 길어졌습니다. 그래서 저도 보고 싶지 않아지는 단점이 있네요...
