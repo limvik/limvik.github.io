@@ -352,6 +352,8 @@ PostJsonTests > PostDeserializationTest() PASSED
 
 `생성`하는 것이니 큰 고민이 필요 없습니다. `POST` 를 사용합니다.
 
+`PUT`을 생성에도 사용하기는 하지만, 현재 배운대로면 이미 자원의 위치를 알고 있을 때 `PUT`을 사용합니다. 하지만, 게시글의 식별자인 id 는 데이터베이스에서 자동 생성되므로 클라이언트에서 알 수 없습니다.
+
 ### HTTP Response Status Code
 
 게시글을 정상적으로 생성한 경우, 제목이나 내용이 비어있는 경우, 권한 없는 사용자가 요청한 경우로 나눠볼 수 있겠습니다.
@@ -1385,7 +1387,52 @@ private String content;
 
 ![MySQL Workbench에서 확인한 데이터 저장 상태 화면](/assets/img/2023-08-10-making-rest-api-with-spring-boot-3-create-a-new-post/05-null-userid.png)
 
-내일 테스트 코드를 작성하고, 원인을 찾아서 수정해야겠습니다.
+## 테스트 코드 추가
+
+유효한 토큰으로 게시글 저장을 요청한 후에 테스트 케이스에 있던 값들과 일치하는지 확인합니다.
+
+```java
+Post savedNewPost = postRepository.findById(1L).get();
+assertThat(savedNewPost.getId()).isEqualTo(1);
+assertThat(savedNewPost.getTitle()).isEqualTo("title");
+assertThat(savedNewPost.getContent()).isEqualTo("content");
+assertThat(savedNewPost.getCreatedAt()).isBetween(LocalDateTime.now().minusMinutes(5), LocalDateTime.now());
+assertThat(savedNewPost.getUpdatedAt()).isBetween(LocalDateTime.now().minusMinutes(5), LocalDateTime.now());
+assertThat(savedNewPost.getUserId().getId()).isEqualTo(1);
+```
+
+당연하게도 NullPointerException이 발생하여 실패합니다.
+
+## 수정
+
+처음에는 JPA의 문제인가 생각을 했는데, Spring Security 사용이 아직도 미숙한 탓이었습니다.
+
+Controller 에서 `@AuthenticationPrincipal User user` 과 같이 인증된 Principal 을 넘겨주는 annotation을 표시했습니다. 그런데, 앞서 JwtAuthenticationProvider 에서 setDetails 메서드를 이용해서 details 는 지정을 했는데, principal을 지정하지는 않았습니다.
+
+그래서 JwtAuthenticationToken 에서 principal 에대한 setter 를 추가하고,
+
+```java
+public void setPrincipal(Object userDetails) {
+        this.principal = userDetails;
+    }
+```
+
+JwtAuthenticationProvider 에서 setDetails 대신 setPrincipal을 요청하도록 수정하였습니다.
+
+```java
+@Override
+public Authentication authenticate(Authentication authentication)
+        throws JwtException, AuthenticationException {
+
+    var xAuthToken = (XAuthAuthenticationToken) authentication;
+    var jws = jwtProvider.parse(xAuthToken.getToken());
+    var jwtToken = new JwtAuthenticationToken(jws, List.of(new SimpleGrantedAuthority(getAuthorities(jws))));
+    jwtToken.setPrincipal(getDetails(jwtToken));
+    return jwtToken;
+}
+```
+
+이래서 테스트를 작성하는구나... 하고 다시 한 번 깨닫는 순간입니다.
 
 ## Outro
 
