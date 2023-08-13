@@ -1060,6 +1060,8 @@ spring.sql.init.mode=always
 
 그리고 `spring.sql.init.mode` 는 data.sql 에 작성한 sql을 실행(`초기화`)시키는 설정을 할 수 있는 설정입니다.
 
+이렇게 설정하면 테스트에서도 sql이 실행되므로, 테스트 디렉토리에 있는 application.properties 에는 always가 아닌 `never` 로 설정해야합니다.
+
 ### 실행
 
 간단하게 쿼리 파라미터 없이 GET 요청을 했는데, 링크에 host가 빠져있습니다.
@@ -1096,6 +1098,77 @@ public ResponseEntity<PostsList> getPostsList(HttpServletRequest request,
 ![Uri 관련 코드 수정 후 Postman 에서 다시 요청을 보낸 결과 화면](/assets/img/2023-08-13-making-rest-api-with-spring-boot-4-request-posts-list/06-request-posts-list-in-postman-after-modify-uri.png)
 
 이정도로 마무리하고 나머지 기능도 작업해야겠습니다.
+
+## 추가 수정
+
+Outro 까지 다 작성했는데, PR 올리면서 Postman 으로 전체적으로 다시 테스트 했더니 예상과 다른 동작이 있습니다.
+
+### 개별 게시글 링크에 다음 페이지의 page 값이 지정되는 문제
+
+개별 게시물의 uri 를 build 할 때는 page 나 size 를 지정하지 않다보니 이전에 마지막으로 지정했던 다음 페이지의 page와 size 값을 그대로 사용하는 오류가 있었습니다.
+
+그래서 다음 페이지의 uri를 build 한 후 다시 현재 페이지의 값으로 변경하도록 코드를 추가하였습니다.
+
+```java
+URI nextPage = postsPage.isLast() ?
+        null : buildPostsListUri(currentPage + 1, pageSize, ucb);
+ucb.replaceQueryParam("page", currentPage)
+        .replaceQueryParam("size", pageSize)
+        .build();
+```
+
+size는 동일하니 빼도 되는데, 같이 변경을 해버렸네요.
+
+### page 범위를 초과하는 경우 개별 게시글 목록 반환하지 않는 문제
+
+page 범위를 초과하는 값을 입력 받았을 때, 해당 값을 그대로 repository 에서 조회를 해서 반환값이 비어있었습니다.
+
+page 범위 초과 테스트할 때 body 에 대한 테스트를 작성하지 않았더니 여기서 바로 당합니다.
+
+전체 페이지를 계산해서 입력된 page 값과 비교하여 실제 총 page 값보다 큰 경우 page=0으로 조회하도록 수정합니다.
+
+```java
+@Transactional(readOnly = true)
+public PostsList getPage(Pageable pageable, UriComponentsBuilder ucb) {
+    Page<Post> postsPage = postRepository.findAll(PageRequest.of(
+            pageable.getPageNumber() > getTotalPages(pageable) ? 0 : pageable.getPageNumber(),
+            pageable.getPageSize(),
+            pageable.getSortOr(Sort.by(Sort.Direction.DESC, "id"))
+    ));
+
+    if (postsPage.getTotalElements() == 0) {
+        return null;
+    } else {
+        return getPostsList(postsPage, ucb);
+    }
+}
+
+private int getTotalPages(Pageable pageable) {
+    long totalPosts = postRepository.count();
+    int requestedPageSize = pageable.getPageSize();
+    int totalPages = (int) (totalPosts / requestedPageSize);
+    totalPages += totalPosts % requestedPageSize != 0 ? 1 : 0;
+    return totalPages;
+}
+```
+
+테스트를 먼저 작성했어야 하는데, 급한 마음에 구현부터 해버렸습니다. 간단하게 테스트 데이터인 page 가 999 일 때, 게시글 관련 정보가 포함되어 있는지 확인하는 테스트를 추가합니다.
+
+```java
+if (page == 999) {
+    List<Map<String, Object>> postsInfo = documentContext.read("$.postsInfo");
+    assertThat(postsInfo.size()).isEqualTo(1);
+    assertThat(postsInfo.get(0).get("id")).isEqualTo(1);
+    assertThat(postsInfo.get(0).get("title")).isEqualTo("title1");
+    assertThat(postsInfo.get(0).get("writer")).isEqualTo("limvik@limvik.com");
+    assertThat(LocalDateTime.parse(String.valueOf(postsInfo.get(0).get("createdAt")))).isBefore(LocalDateTime.now());
+    assertThat(postsInfo.get(0).get("uri").toString()).contains("/api/v1/posts/1");
+}
+```
+
+다시 테스트를 해보면 모두 PASSED가 되는 것을 확인할 수 있습니다. 붙여넣지는 않겠습니다.
+
+size 도 무한정으로 하면 안될텐데, 추후에 page 와 size 기본값을 변경할 때 최대값 제한도 같이 해야겠습니다.
 
 ## Outro
 
