@@ -1434,6 +1434,17 @@ public Authentication authenticate(Authentication authentication)
 
 이래서 테스트를 작성하는구나... 하고 다시 한 번 깨닫는 순간입니다.
 
+### 다시 테스트
+
+다시 테스트를 해보면, 모두 정상적으로 PASSED가 시현되는 것을 볼 수 있습니다.
+
+```
+PostRequestTests > 유효한 토큰으로 게시글 생성 요청 PASSED
+PostRequestTests > 만료된 토큰으로 게시물 생성 요청 PASSED
+PostRequestTests > 유효한 토큰으로 `제목`이 비어있는 게시물 생성 요청 PASSED
+PostRequestTests > 유효한 토큰으로 `내용`이 비어있는 게시물 생성 요청 PASSED
+```
+
 ## Outro
 
 이번에는 그냥 잘못 코딩하고 수정하는 과정까지 그냥 쭉 써내려갔더니 글이 더 길어졌습니다. 그래서 저도 보고 싶지 않아지는 단점이 있네요...
