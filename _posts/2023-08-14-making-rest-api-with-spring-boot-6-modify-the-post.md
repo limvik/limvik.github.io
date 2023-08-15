@@ -40,7 +40,7 @@ date: 2023-08-14 21:49 +0900
 
 PATCH 메서드 요청 성공 시에는 `200(OK)`로 합니다. 그리고 요청한 수정사항을 반영한 게시글 내용을 body에 포함하여 반환합니다. 
 
-RFC 문서 상의 예제([링크](https://datatracker.ietf.org/doc/html/rfc5789#section-2.1))를 보면, 204(No Content)응답을 보냅니다. 아무래도 파일 수정이라 그런 것 같습니다.
+RFC 문서 상의 예제([링크](https://datatracker.ietf.org/doc/html/rfc5789#section-2.1))를 보면, 204(No Content)응답을 보냅니다. 아무래도 파일 수정이라 그런 것 같습니다. - 라고 썼었는데, 기존의 자원과는 다른 자원이 되는 것이니 No Content가 된다고 볼 수도 있겠습니다.
 
 ```
 PATCH /file.txt HTTP/1.1
