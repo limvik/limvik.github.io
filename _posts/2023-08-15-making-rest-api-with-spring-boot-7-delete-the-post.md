@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Spring Boot로 REST API 만들어보기 (7) 특정 게시물 수정
+title: Spring Boot로 REST API 만들어보기 (7) 특정 게시물 삭제
 categories:
 - API
 - REST
