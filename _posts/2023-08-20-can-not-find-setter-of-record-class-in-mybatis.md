@@ -1,6 +1,6 @@
 ---
 layout: post
-title: MyBatis에서 record 클래스 사용 setter 관련 오류 및 해결방법
+title: MyBatis에서 record 클래스 사용 시 setter 관련 오류 및 해결방법
 categories:
 - etc
 tags:
