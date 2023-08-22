@@ -126,3 +126,11 @@ Issue 를 올렸더니 직접 PR 을 올려줄 수 있겠냐는 응답이 왔습
 오픈소스에 기여하면서 Git, Github 도 배우고, Java의 몰랐던 기능도 배울 수 있는 좋은 기회였던 것 같습니다. 그런데 지금 다시 보니 PR 올릴 때, 왜 이렇게 수정해야되는지 자세히 적지 않아 조금 아쉬운 것 같습니다. 사소한 것이다 보니 이번에는 merge가 되긴 했지만, 다음에는 왜 이렇게 변경해야 되는지, 그리고 변경을 통해 무엇을 얻을 수 있는지 PR 을 작성하면서 같이 작성하는 것도 좋은 연습이 될 것 같습니다.
 
 1개 남은 PR도 나중에는 merge가 되지 않을까 생각됩니다. 오픈소스를 관리하는 곳 마다 다르긴 하겠지만, Spring Security 에 기여하고 싶으신 분들은 느긋함을 갖고 기다려보시는게 좋겠습니다.
+
+## 추가
+
+별거는 아니지만 6.0.6 버전 Release note([링크](https://github.com/spring-projects/spring-security/releases/tag/6.0.6))에 제 아이디가 올라와 있는 것을 보니 생각보다 기분이 좋습니다.
+
+![Release note](/assets/img/2023-08-09-first-contribution-to-spring-security/06-release-note.png)
+
+6.1.3 버전([링크](https://github.com/spring-projects/spring-security/releases/tag/6.1.3))에도...!
