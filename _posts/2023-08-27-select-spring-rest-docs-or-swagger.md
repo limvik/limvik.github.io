@@ -25,6 +25,8 @@ REST API도 API 문서도 처음 만들어보니 허접하긴 하지만, Postman
 
 Spring REST Docs를 이용한 방법도 좋은 선택으로 보였고, Spring REST Docs 와 Swagger를 모두 이용하는 분도 계셨지만, 저는 다음에 만들어볼 REST API에서 `Swagger`를 이용하기로 결정했습니다. 결정 과정에서 조사했던 자료들을 정리할 겸 글을 작성해봅니다.
 
+> 추가) 글에서 OAS(OpenAPI Specification)과 Swagger는 동일한 의미로 혼용하였습니다. 국내에서는 문서화 도구로 한정해서 Swagger를 사용하는 것 같은데, 저는 API 설계도구로서 Swagger 를 생각해서 좀 혼란이 있습니다.
+
 ## 선택 기준 찾아보기
 
 여러가지 블로그 글을 찾아봤는데, 비교한 내용은 대동소이 해서 아래 두 자료를 저장 겸 추가해둡니다.
@@ -174,8 +176,6 @@ API를 호출할 대체 수단이 많고, Spring REST Docs가 많이 선택되�
 
 그렇다면 배운 지식을 기반으로 고려해 볼 때, API의 표준 필요성에 의해 생겨난게 OpenAPI Spec 이라는 점, OpenAPI Spec 에 따라 YAML 또는 JSON 문서로 만들어놓으면 다른 언어에서도 사용 가능하다는 점을 고려하여 Swagger 를 선택하겠습니다.
 
-요약해보자면 API 표준에 맞춰 REST API를 만들어볼 수 있는 Swagger 를 선택했습니다.
-
 특히나 아직 REST API를 한 번 밖에 못 만들어본 상태라, 표준에 맞춰서 만드는 연습하기에도 좋을 거라 생각했습니다.
 
 ## Outro
@@ -197,3 +197,4 @@ Swagger 를 선택했으니, REST API 를 표준에 맞게 만들면서 테스�
 [https://openapi.tools/](https://openapi.tools/)  
 [Swagger Editor](https://editor-next.swagger.io/)  
 [https://www.openapis.org/](https://www.openapis.org/)
+[https://tools.openapis.org/](https://tools.openapis.org/)
