@@ -31,7 +31,7 @@ Spring REST Docs를 이용한 방법도 좋은 선택으로 보였고, Spring RE
 
 여러가지 블로그 글을 찾아봤는데, 비교한 내용은 대동소이 해서 아래 두 자료를 저장 겸 추가해둡니다.
 
-[내가 만든 API를 널리 알리기 - Spring REST Docs 가이드편](https://helloworld.kurly.com/blog/spring-rest-docs-guide/)
+[내가 만든 API를 널리 알리기 - Spring REST Docs 가이드편](https://helloworld.kurly.com/blog/spring-rest-docs-guide/)  
 [Swagger와 Spring Restdocs의 우아한 조합 (by OpenAPI Spec)](https://taetaetae.github.io/posts/a-combination-of-swagger-and-spring-restdocs/)  
 [우아한 기술 블로그 - Spring Rest Docs 적용](https://techblog.woowahan.com/2597/)  
 
@@ -91,6 +91,9 @@ Spring REST Docs를 이용한 방법도 좋은 선택으로 보였고, Spring RE
 [Dynamic Test Generation with OpenAPI 3.0, Allen Helton, Tyler Tech | Postman Galaxy 2021](https://www.youtube.com/watch?v=fzN67jPLpqI)  
 
 여튼 테스트를 작성하지 않아서 만들어놓은 API 존재 자체를 잊는 것 보다는 다른 방식으로 보완하는게 더 나은 것 같아 Swagger에게 1승을 주었습니다.
+
+> 글 업데이트, Rest Docs 테스트 작성 안해서 API 업데이트 안된 경우가 실제로 있다는 썰이 보여서 추가 합니다.
+> https://youtu.be/r03ObslCNlo?si=PkiouLmVM6H0fgo7&t=437 
 
 ### 프로덕션 코드 영향 여부
 
@@ -196,5 +199,5 @@ Swagger 를 선택했으니, REST API 를 표준에 맞게 만들면서 테스�
 
 [https://openapi.tools/](https://openapi.tools/)  
 [Swagger Editor](https://editor-next.swagger.io/)  
-[https://www.openapis.org/](https://www.openapis.org/)
+[https://www.openapis.org/](https://www.openapis.org/)  
 [https://tools.openapis.org/](https://tools.openapis.org/)
