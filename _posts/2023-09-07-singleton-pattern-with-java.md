@@ -6,6 +6,7 @@ categories:
 tags:
 - OOP
 - DI
+- Java
 date: 2023-09-07 14:27 +0900
 ---
 ## Intro
@@ -234,7 +235,7 @@ public class Singleton {
 
 Spring 사용 시 Field, Setter Injection 등을 사용할 수 있고 일반적으로는 Constructor Injection을 통해서 의존성을 주입하므로, 앞서 언급한 가독성 감소 단점을 해소합니다. 또 추상에 의존할 수 있게 해주므로 DIP, OCP 를 위반하는 단점도 해소합니다. 그리고 다른 단점들도 멤버 변수의 값이 유지되는 문제를 제외하고, Spring을 사용하시는 분들이라면 많이 해소가 된다는 것을 알 수 있습니다.
 
-인스턴스가 1개라서 발생하는 문제 외에는 DI COntainer를 이용해 많은 부분 해결을 할 수 있습니다. Spring이 싱글턴 패턴의 단점을 해결하자고 나온 것은 아니지만, 싱글턴 패턴을 굳이 사용할 필요 없게 만들어 버렸습니다.
+인스턴스가 1개라서 발생하는 문제 외에는 DI Container를 이용해 많은 부분 해결을 할 수 있습니다. Spring이 싱글턴 패턴의 단점을 해결하자고 나온 것은 아니지만, 싱글턴 패턴을 굳이 사용할 필요 없게 만들어 버렸습니다.
 
 Spring 을 DI Container 로만 사용해도 되고, [Guice](https://github.com/google/guice) 같은 가벼운 DI Container 전용 라이브러리도 있으니 추후에도 싱글턴 패턴은 선택지가 될 수 없을 것 같습니다.
 
