@@ -38,7 +38,7 @@ CREATE INDEX part_of_name ON customer (name(10));
 
 과거에는 innoDB 사용시 prefix 최대값(index key prefix length limit)이 767 bytes 였습니다. 이는 UTF-8 사용 시 한 글자가 최대 3bytes 이고 255글자 x 3bytes = 765 bytes 가 되어 전부 인덱스로 지정할 수 있지만, 256 x 3 = 768 bytes 이므로 제한된 크기를 넘어가게 됩니다. 
 
-최근에는 utf8mb4 등 4bytes 인 문자로 인해 더 큰 크기의 지원이 필요해졌고, innoDB 사용시 prefix 최대값은 row format 설정에 따라 다르긴 하지만 기본 설정값은 3072 bytes 입니다.
+이후 utf8mb4 등 4bytes 인 문자로 인해 더 큰 크기의 지원이 필요해졌고, innoDB 사용시 prefix 최대값은 row format 설정에 따라 다르긴 하지만 기본 설정값은 3072 bytes 로 증가하였습니다.
 
 > inno db row format 상세 내용 문서([링크](https://dev.mysql.com/doc/refman/8.0/en/innodb-row-format.html))  
 
@@ -110,4 +110,4 @@ CPU 속도가 문제가 되는 수준의 연산 작업을 하는거면, 빅데�
 
 VARCHAR(255) 써도 되는거야 마는거야 정도만 알고 싶은 마음과, 더 깊게 알고 싶은 마음이 오락가락해서 내용의 깊이도 뭔가 애매한거 같습니다.
 
-더 깊이있는 내용이  필요할 때 위에 있는 키워드로 더 찾아보는걸로 하고, 이만 마무리하겠습니다.
+더 깊이있는 내용이 필요할 때 위에 있는 키워드로 더 찾아보는걸로 하고, 이만 마무리하겠습니다.
