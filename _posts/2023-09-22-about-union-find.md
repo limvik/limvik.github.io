@@ -170,7 +170,7 @@ Quick Union은 Quick Find와 달리 Lazy Approach의 한 예라고 할 수 있�
 
 ![quick union 알고리즘에서 5과 0의 union 연산](/assets/img/2023-09-21-union-find/15.quick-union-5-0.svg)
 
-이를 구현하기 위해서는 index 값과 배열의 값이 같지 않을 때 root를 찾아가는 작업이 추가로 필요합니다.
+이를 구현하기 위해서는 index 값과 배열의 값이 같지 않을 때 루트를 찾아가는 작업이 추가로 필요합니다.
 
 Java로 구현한 Quick Union 코드를 보시면, 아래와 같습니다.
 
@@ -201,7 +201,7 @@ public class QuickUnionUF {
 
 union 은 루트를 찾아서 루트를 변경하고, connected도 루트가 같은지 확인하기 위해 루트를 찾고 있는 것을 볼 수 있습니다.
 
-항상 루트를 찾아야하므로 union, connected 모두 `트리의 높이`가 연산 속도를 결정하게 됩니다. 사향 이진 트리(Skewed Binary Tree)와 같은 최악의 경우를 생각해보자면, union을 할 때도 루트를 계속 찾아야하므로 Quick Find 보다 효율이 더 떨어져 보입니다.
+항상 루트를 찾아야하므로 union, connected 모두 `트리의 높이`가 연산 속도를 결정하게 됩니다. 사향 이진 트리(Skewed Binary Tree)와 같은 최악의 경우를 생각해보자면, Quick Union에서는 union, find 모두 루트를 찾아야하므로 Quick Find 보다 효율이 더 떨어져 보입니다.
 
 그럼 Quick Find가 더 나은게 아닌가 싶지만, Quick Union은 개선의 여지가 있습니다.
 
@@ -437,6 +437,7 @@ Union-Find 인데, 직관적인 측면에서도 find 메서드를 사용하는�
 - [https://algs4.cs.princeton.edu/15uf/](https://algs4.cs.princeton.edu/15uf/)
 - [https://resources.mpi-inf.mpg.de/departments/d1/teaching/ss12/AdvancedGraphAlgorithms/Slides08.pdf](https://resources.mpi-inf.mpg.de/departments/d1/teaching/ss12/AdvancedGraphAlgorithms/Slides08.pdf)
 - [https://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/17/Small17.pdf](https://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/17/Small17.pdf)
+- [https://en.wikipedia.org/wiki/Dynamic_connectivity](https://en.wikipedia.org/wiki/Dynamic_connectivity)
 - [https://en.wikipedia.org/wiki/Disjoint-set_data_structure](https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
 - [https://courses.cs.duke.edu/cps100e/fall09/notes/UnionFind.pdf](https://courses.cs.duke.edu/cps100e/fall09/notes/UnionFind.pdf)
 - [https://cse.taylor.edu/~jdenning/classes/cos265/slides/01_UnionFind.html](https://cse.taylor.edu/~jdenning/classes/cos265/slides/01_UnionFind.html)
