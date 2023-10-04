@@ -19,6 +19,8 @@ KISA의 [패스워드 선택 및 이용 안내서](https://www.kisa.or.kr/206030
 
 마찬가지로 `최대 길이`는 명확하게 지침을 주고 있지 않고, Appendix의 Length 섹션에서 사용자가 원하는만큼 입력하게 하되, MB 크기의 길이를 허용하면 해싱하는데 시간이 오래 걸리므로 합리적인 선에서 제한을 하라고만 합니다.
 
+> 글 업로드 후에 위 지침과 관련해서 흥미로운 글을 발견해서 글 하단에 추가로 업데이트 하였습니다.
+
 찾아본 결과로는 비밀번호 최대 길이를 설정할 수 있는 마법의 공식은 없어서 아쉬웠지만, 최대 길이를 설정할 때 고려할만한 사항들을 생각해볼 수 있었습니다.
 
 ## 유명한 서비스들의 비밀번호 최대 길이
@@ -98,3 +100,27 @@ bcrypt 최대 길이를 벗어나는 경우 뒷 부분은 무시해버리는 질
 ## Outro
 
 저 같은 경우 개인 프로젝트에 사용할 Spring Security의 기본 설정이 bcrypt 이고, 해싱 알고리즘을 자세히 살펴볼 여유가 없어서 일반적으로 사용하는 64글자를 비밀번호 최대 길이로 설정할 계획입니다. 하지만 bcrypt를 사용하더라도 라운드 수 설정 및 서버 성능에 따라 해싱 속도가 달라지는 것은 마찬가지이므로, 실험을 통해서 최대 길이를 더 줄일 가능성은 열어두어야겠습니다.
+
+## 안전한 비번 만드는 비법, 보안에 도움 안된다
+
+2017년 [ZDNET에 올라왔던 기사](https://zdnet.co.kr/view/?no=20170809110258)입니다.
+
+> 자신만 알 수 있는 안전한 패스워드(password)를 만들어라. 알파벳 대소문자, 숫자, 특수문자를 섞어라. 주기적으로 바꿔라.
+
+이 지침을 만들어서 NIST 문서에 반영했던 보안 전문가가 후회하고 개정된 문서에서는 이 내용이 제외됐다고 합니다.
+
+> 많은 사람들이 이 규칙대로 복잡한 패스워드를 만들더라도 빈번한 변경 주기를 따르느라 문자열을 크게 바꾸지 않는데다 입력 자체를 불편하게 할 뿐이었다고 지적했다.
+
+그리고 개정한 사람의 코멘트를 보면, 만료기간도 별 도움이 안된다고 합니다.
+
+> 개정 작업을 맡은 NIST 표준 및 기술 고문 폴 그라시(Paul Grassi)는 특수문자 입력이나 만료기간같은 조건이 보안에 별로 도움이 안 됐다며 "실제로는 사용성에 부정적인 영향을 줬다"고 말했다.
+
+[NIST 문서](https://pages.nist.gov/800-63-3/sp800-63b.html#-5112-memorized-secret-verifiers)를 조금 더 살펴보니 실제로 문자 조합 강제하지 말고, 주기적으로 변경을 요구할 필요도 없다고 합니다.
+
+> Verifiers `SHOULD NOT impose` other composition rules (e.g., requiring mixtures of `different character types` or prohibiting consecutively repeated characters) for memorized secrets. Verifiers `SHOULD NOT require` memorized secrets `to be changed arbitrarily (e.g., periodically)`. However, verifiers SHALL force a change if there is evidence of compromise of the authenticator.
+
+그리고 이 상황의 문제를 보여주는 만화
+
+![xkcd](https://imgs.xkcd.com/comics/password_strength.png)
+
+사용자가 원하는대로 문장으로 입력하는게 좋은 선택으로 보입니다. 문득 국내 비밀번호 지침은 언제 업데이트되는건가 궁금해집니다.
