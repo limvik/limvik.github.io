@@ -77,6 +77,15 @@ KISA의 [패스워드 선택 및 이용 안내서](https://www.kisa.or.kr/206030
 
 passphrase는 비밀번호를 쉽게 기억하기 위해 A cat that loves dogs. 와 같은 의미있는 문장을 Acat th@tlov3sd0gs. 와 같이 특수문자를 포함한 문자열로 변경하여 비밀번호로 사용하는 것입니다(출처: [Skills for all by Cisco - Introduction to cybersecurity](https://skillsforall.com/course/introduction-to-cybersecurity)).
 
+> 위 passphrase 예제가 별로 좋지 않은 것 같아 추가합니다.
+>
+> 보안업체인 Avast에 있는 [예제](https://www.avg.com/en/signal/how-to-create-a-strong-password-that-you-wont-forget)를 보면, passphrase는 `길이`가 길고, 관련없는 단어들을 조합하여 `무작위성`이 있어야 합니다.
+>
+> Broadways&Swimmer&Argue7&Pursuant&Dramatize  
+> Rickety Output Oxidant Deem Spotless
+>
+> 그리고 `기억하기 쉬워야 한다`는 점을 강조합니다. 말도 안되는 문장이지만 본인만큼은 기억하기 쉬운 문장이라고 할 수 있겠습니다.
+
 그리고 이 다음에 특정 해싱 알고리즘의 한계로 인해 `64글자를 최대 길이로 설정하는게 일반적`이라고 합니다. 일반적이라고는 하는데 저는 64글자 제한을 본적이 없어서 Password Storage Cheat Sheet를 살펴보니 bcrypt 때문인 것으로 보입니다.
 
 > -   **For legacy systems using  [bcrypt](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#bcrypt), use a work factor of 10 or more and with a password limit of `72 bytes`.**
@@ -122,5 +131,5 @@ bcrypt 최대 길이를 벗어나는 경우 뒷 부분은 무시해버리는 질
 그리고 이 상황의 문제를 보여주는 만화
 
 ![xkcd](https://imgs.xkcd.com/comics/password_strength.png)
-
+출처: [xkcd](https://xkcd.com/936)
 사용자가 원하는대로 문장으로 입력하는게 좋은 선택으로 보입니다. 문득 국내 비밀번호 지침은 언제 업데이트되는건가 궁금해집니다.
