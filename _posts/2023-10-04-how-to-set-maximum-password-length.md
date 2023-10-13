@@ -130,6 +130,7 @@ bcrypt 최대 길이를 벗어나는 경우 뒷 부분은 무시해버리는 질
 
 그리고 이 상황의 문제를 보여주는 만화
 
-![xkcd](https://imgs.xkcd.com/comics/password_strength.png)
+![xkcd](https://imgs.xkcd.com/comics/password_strength.png)  
 출처: [xkcd](https://xkcd.com/936)
+
 사용자가 원하는대로 문장으로 입력하는게 좋은 선택으로 보입니다. 문득 국내 비밀번호 지침은 언제 업데이트되는건가 궁금해집니다.
