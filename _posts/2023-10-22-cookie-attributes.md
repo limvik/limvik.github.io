@@ -106,6 +106,8 @@ Set-Cookie: tasty_cookie=strawberry
 [page content]
 ```
 
+그리고 클라이언트에서 Cookie 헤더에 Cookie 정보를 설정하여 서버로 보내는 예제는 아래와 같습니다.
+
 ### Cookie
 
 ```text
@@ -326,7 +328,7 @@ Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Strict
 Set-Cookie: <cookie-name>=<cookie-value>; SameSite=Lax
 ```
 
-이미지 또는 프레임 로드 요청과 같은 Cross-Site 요청에는 쿠키가 전송되지 않지만 사용자가 외부 사이트에서 원본 사이트로 이동할 때(예: 링크를 따라갈 때) 쿠키가 전송됨을 의미합니다. 이는 SameSite 속성이 `지정되지 않은 경우 기본 동작`입니다.
+이미지 또는 프레임 로드 요청과 같은 Cross-Site 요청에는 쿠키가 전송되지 않지만 사용자가 외부 사이트에서 origin 사이트로 이동할 때(예: 링크를 따라갈 때) 쿠키가 전송됨을 의미합니다. 이는 SameSite 속성이 `지정되지 않은 경우 기본 동작`입니다.
 
 하지만 기본값 설정은 Chrome도 2021년에서야 설정했고, MDN 문서를 보면 현재 Firefox와 Safari는 기본값을 지원하지 않습니다.
 
