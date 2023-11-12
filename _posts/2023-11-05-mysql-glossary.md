@@ -64,6 +64,10 @@ Transaction 부터 시작해서 보다보니, 한도 끝도 없어서 그냥 생
 
 - [Doublewrite Buffer](#doublewrite-buffer)
 
+### L
+
+- [LSN](#lsn)
+
 ### R
 
 - [Redo](#redo)
@@ -116,6 +120,7 @@ Transaction 부터 시작해서 보다보니, 한도 끝도 없어서 그냥 생
 
 - locking mechanism 하고 isloation level은 별개의 것으로 봐야겠지?
 - doublewrite buffer는 뭐지?
+  - [doublewrite buffer](#doublewrite-buffer)
 - 트랜잭션 지원하지 않는 Storage Engine은 ACID 특성을 만족 못하나? doublewrite buffer 같은거도 없나? 그럼 트랜잭션 지원하는 NDB는 doublewrite buffer 말고 뭘 쓰지?
 
 ### Autocommit
@@ -134,6 +139,7 @@ Transaction 부터 시작해서 보다보니, 한도 끝도 없어서 그냥 생
 	- [Redo](#redo) 참고
 	- Undo 는 롤백 할때 사용하는 반면, Redo는 Crash Recovery 할때 사용한다.
 	- Undo 와 Redo를 양자 택일의 관계로 잘못 생각한 질문
+	  - 복구 기법 별로 Undo, Redo 모두 사용되는 것도 있고, 안되는 것도 있는걸 잊고 있었다.
 - undo data가 undo log 말고 다른 것도 있나?
 	- [Undo](#undo) 용어 설명을 보면, undo log를 undo tablespaces에 저장하는 것 외에는 아직 안보인다.(2023-11-03)
 - MySQL 5.6.4 전에는 autocommit이 없었나?
@@ -230,6 +236,38 @@ Transaction 부터 시작해서 보다보니, 한도 끝도 없어서 그냥 생
 - page는 뭘 의미하는거지?
 - data files 는 정확히 무엇을 가리키는거지?
 
+### LSN
+
+[LSN](https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_lsn)
+
+Acronym for  “log sequence number”. This arbitrary, ever-increasing value represents a point in time corresponding to operations recorded in the  **redo log**. (This point in time is regardless of  **transaction**  boundaries; it can fall in the middle of one or more transactions.) It is used internally by  `InnoDB`  during  **crash recovery**  and for managing the  **buffer pool**.
+
+Prior to MySQL 5.6.3, the LSN was a 4-byte unsigned integer. The LSN became an 8-byte unsigned integer in MySQL 5.6.3 when the redo log file size limit increased from 4GB to 512GB, as additional bytes were required to store extra size information. Applications built on MySQL 5.6.3 or later that use LSN values should use 64-bit rather than 32-bit variables to store and compare LSN values.
+
+In the  **MySQL Enterprise Backup**  product, you can specify an LSN to represent the point in time from which to take an  **incremental backup**. The relevant LSN is displayed by the output of the  **mysqlbackup**  command. Once you have the LSN corresponding to the time of a full backup, you can specify that value to take a subsequent incremental backup, whose output contains another LSN for the next incremental backup.
+
+#### 번역
+
+> "log sequence number”"의 약어입니다. 이 임의의 계속 증가하는 값은 **redo log**에 기록된 작업에 해당하는 시점을 나타냅니다. (이 시점은 **트랜잭션** 경계와 무관하며, 하나 이상의 트랜잭션 중간에 속할 수 있습니다.) 이 값은 `InnoDB`에서 **crash recovery** 및 **buffer pool** 관리를 위해 내부적으로 사용됩니다.
+>
+> MySQL 5.6.3 이전에는 LSN이 4-byte unsigned integer였습니다. redo log 파일 크기 제한이 4GB에서 512GB로 증가하면서 extra size 정보를 저장하는 데 추가적인 bytes가 필요했기 때문에 MySQL 5.6.3에서는 LSN이 8-byte unsigned integer가 되었습니다. LSN 값을 사용하는 MySQL 5.6.3 이상에서 구축된 애플리케이션은 32비트 변수가 아닌 64비트 변수를 사용하여 LSN 값을 저장 및 비교해야 합니다.
+>
+> **MySQL Enterprise Backup** 제품에서는 **증분 백업(incremental backup)**을 수행할 시점을 나타내기 위해 LSN을 지정할 수 있습니다. 관련 LSN은 **mysqlbackup** 명령의 출력에 표시됩니다. 전체 백업(full backup) 시점에 해당하는 LSN이 있으면 해당 값을 지정하여 후속 증분 백업을 수행할 수 있으며, 출력에는 다음 증분 백업에 대한 또 다른 LSN이 포함됩니다.
+
+#### 새로 알게된 것
+
+- LSN은 Log Sequence Number의 약자다.
+- MySQL에는 Buffer Pool 이라는게 존재한다.
+- LSN은 특정 트랜잭션에 종속적이지 않다.
+- redo log 파일 크기에는 제한이 있고, 512GB까지 저장할 수 있다.
+- LSN은 백업할 때도 사용하며, incremental backup 은 MySQL Enterprise Backup 제품에서 사용 가능하다.
+
+#### 질문
+
+- redo log는 그동안 수행한 쿼리를 전부 기록하는 건가? LSN 으로 카운팅해서 특정 갯수만큼 쿼리를 다시 실행하는게 재생(replay) 인가?
+- buffer pool은 뭘까? 지금까지 본 doublewrite buffer, change buffer 말고도 buffer가 많아서, buffer 들 관리하는건가?
+- redo log를 512GB까지 저장할 수 있으면, 더 커졌을 때 full backup 은 어떻게 하나? 파일 크기 제한이니까 파일 하나 더 만드나?
+
 ### Redo
 
 [Redo](https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_redo)
@@ -287,6 +325,9 @@ Transaction 부터 시작해서 보다보니, 한도 끝도 없어서 그냥 생
 - InnoDB 테이블 데이터 변경 요청을 인코딩한다는게 무슨 의미지?
 - 자동으로 재생(replayed)된다는게 무슨 의미지?
 - 레코드의 관점에서 인코딩 된다는게 무슨 의미지?
+- redo log에는 무슨 내용이 저장되는건가?
+- 기존 지식과 함께 정리해보기
+  - 시험용으로 외웠던 지식에 대입해보면, 불완전한 트랜잭션은 commit은 했지만 data files에 저장되지 않은 트랜잭션이기 때문에 redo log에 기록된 내용들을 재생해서 data files에 기록하고, commit조차 되지 않은 트랜잭션 또는 rollback 쿼리를 수행하면 undo log를 이용해서 낙관적인 메커니즘으로 어딘가에 기록된 내용들을 다 취소하는 것...? 맞는건지 확인이 필요하겠다.
 
 ### Rollback
 
