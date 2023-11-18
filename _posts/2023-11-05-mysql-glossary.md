@@ -74,6 +74,10 @@ Transaction 부터 시작해서 보다보니, 한도 끝도 없어서 그냥 생
 - [Redo Log](#redo-log)
 - [Rollback](#rollback)
 
+### S
+
+- [Storage Engine](#storage-engine)
+
 ### T
 
 - [Transaction](#transaction)
@@ -351,6 +355,28 @@ In the  **MySQL Enterprise Backup**  product, you can specify an LSN to represen
 #### 질문
 
 - MySQL은 기본 설정이 autocommit인데, JPA에서 롤백은 어떻게 되는걸까? Application Level에서 되는건가?
+
+### Storage Engine
+
+[Storage Engine](https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_storage_engine)
+
+> A component of the MySQL database that performs the low-level work of storing, updating, and querying data. In MySQL 5.5 and higher,  **InnoDB**  is the default storage engine for new tables, superceding  `MyISAM`. Different storage engines are designed with different tradeoffs between factors such as memory usage versus disk usage, read speed versus write speed, and speed versus robustness. Each storage engine manages specific tables, so we refer to  [`InnoDB`](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html "Chapter 15 The InnoDB Storage Engine")  tables,  [`MyISAM`](https://dev.mysql.com/doc/refman/8.0/en/myisam-storage-engine.html "16.2 The MyISAM Storage Engine")  tables, and so on.
+>
+> The  **MySQL Enterprise Backup**  product is optimized for backing up  `InnoDB`  tables. It can also back up tables handled by  `MyISAM`  and other storage engines.
+
+#### 번역
+
+> 데이터를 저장, 업데이트 및 질의하는 low-level 작업을 수행하는 MySQL 데이터베이스의 컴포넌트입니다. MySQL 5.5 이상에서는 **InnoDB**가 새 테이블의 기본 스토리지 엔진으로 `MyISAM`을 대체합니다. 각 스토리지 엔진은 메모리 사용량 대 디스크 사용량, 읽기 속도 대 쓰기 속도, 속도 대 견고성 등의 요소 간에 서로 다른 트레이드오프를 고려하여 설계되었습니다. 각 스토리지 엔진은 특정 테이블을 관리하므로 `InnoDB` 테이블, `MyISAM` 테이블 등을 참조합니다.
+
+**MySQL Enterprise Backup** 제품은 InnoDB 테이블 백업에 최적화되어 있습니다. 또한 MyISAM 및 기타 스토리지 엔진에서 처리하는 테이블도 백업할 수 있습니다.
+
+#### 새로 알게된 것
+
+- MySQL Enterprise Backup은 InnoDB 테이블 백업에 최적화되어 있지만, 다른 Storage Engine도 백업이 가능하다.
+
+#### 질문
+
+- Storage Engine의 처리 결과물이 테이블 파일이라고 보면 되는건가?
 
 ### Undo
 

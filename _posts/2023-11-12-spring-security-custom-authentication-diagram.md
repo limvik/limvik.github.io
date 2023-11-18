@@ -16,7 +16,7 @@ Spring Security 를 사용하면서 개인적인 인증(Authentication) 절차�
 
 ## Diagram
 
-Spring Security 팀에서 이미 구현해놓은 Authentication 인터페이스의 구현체는 보통 Token 이 붙습니다. AuthenticationConverter 인터페이스는 Spring Security 팀에서도 쓸 때도 있고, 안 쓸때도 있어서 취향 것 사용하시면 될거 같습니다.
+Spring Security 팀에서 이미 구현해놓은 Authentication 인터페이스의 구현체는 보통 이름에 Token 이 붙습니다. AuthenticationConverter 인터페이스는 Spring Security 팀에서도 쓸 때도 있고, 안 쓸때도 있어서 취향 것 사용하시면 될거 같습니다.
 
 ![Spring Security Custom Authentication Diagram](/assets/img/2023-11-12-spring-security-custom-authentication-diagram/spring-security-custom-authentication-diagram.png)
 
