@@ -176,7 +176,7 @@ mysql> SELECT * FROM test2;
 
 엄... 잘 되는데...? 뭐가 문제라서 한글을 사용할 때 다른 Collation을 사용하는 걸까요?
 
-앞의 데이터는 utf8mb4_`general`\_ci 와 비교를 해주신 감사한 분의 글([링크](https://rastalion.me/mysql-8-0-1-%EB%B2%84%EC%A0%84%EB%B6%80%ED%84%B0-%EC%B1%84%ED%83%9D%EB%90%9C-utf8mb4_0900_ai_ci%EC%9D%98-%ED%95%9C%EA%B8%80-%EC%82%AC%EC%9A%A9%EC%97%90-%EB%8C%80%ED%95%9C-%EB%AC%B8%EC%A0%9C%EC%A0%90/))에서 가져왔고, 다른 문제를 언급해주셔서 제가 주로 사용했던 utf8mb4_`unicode`_ci 실험으로 아래 소개드립니다.
+앞의 데이터는 utf8mb4_`general`\_ci 와 비교를 해주신 감사한 분의 글([링크](https://rastalion.me/mysql-8-0-1-%EB%B2%84%EC%A0%84%EB%B6%80%ED%84%B0-%EC%B1%84%ED%83%9D%EB%90%9C-utf8mb4_0900_ai_ci%EC%9D%98-%ED%95%9C%EA%B8%80-%EC%82%AC%EC%9A%A9%EC%97%90-%EB%8C%80%ED%95%9C-%EB%AC%B8%EC%A0%9C%EC%A0%90/))에서 가져왔고, 다른 문제를 언급해주셔서 제가 주로 사용했던 utf8mb4_`unicode`\_ci 를 이용해서 동일한 문제를 다룬 실험을 하여 아래 소개드립니다.
 
 ### utf8mb4_unicode_ci 데이터 조회
 
@@ -250,7 +250,7 @@ mysql> SELECT id, name, length(name), hex(name) FROM test2
 3 rows in set (0.00 sec)
 ```
 
-Collation은 이처럼 단순히 비교에만 사용되는 것은 아니라는 것을 알 수 있습니다.
+Collation은 이처럼 단순히 문자를 비교하기 위한 규칙의 집합이라고만 하기에는 고려할게 많아보입니다.
 
 그럼 utf8mb4_`unicode`\_ci 와 utf8mb4_`general`_ci는 어떤 차이가 있을까요? 
 
@@ -266,7 +266,7 @@ Collation은 이처럼 단순히 비교에만 사용되는 것은 아니라는 �
 
 해외의 다른 의견([링크](https://devpress.csdn.net/mysqldb/62fb7a08c677032930800294.html))으로는  utf8mb4_general_ci가 애초에 컴퓨터 처리속도가 굉장히 느린 시절에 정렬의 정확성을 포기하고 단순화 시킨 Collation이기 때문에 최신 컴퓨터에서는 무시할 수 있는 수준이고, 둘 중에 고르라면 utf8mb4_unicode_ci를 쓰는게 낫다는 의견이 있습니다.
 
-그런데 이미 한국에서 utf8mb4_general_ci 는 많이 검증이 됐으므로, 한국향 서비스라면 utf8mb4_general_ci 를 사용하는게 나을 것으로 생각됩니다.
+그런데 이미 한국에서 utf8mb4_general_ci 는 많이 검증이 됐으므로, 한국향 서비스라면 성능을 위해 utf8mb4_general_ci 를 사용하는게 나아 보입니다.
 
 그런데 utf8mb4_general_ci나 utf8mb4_unicode_ci 모두 옛날 UCA(Unicode Collation Algorithm)을 사용하여 성능이 utf8mb4_0900_ai_ci에 비해서 좋지 않다고 합니다.
 
