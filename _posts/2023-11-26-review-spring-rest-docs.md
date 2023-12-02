@@ -49,7 +49,7 @@ Request Fields의 기본 항목인 Path, Type, Description 이외에 별도로 �
 
 Spring 을 사용하면서 문서에 대한 경험이 워낙 좋아서 Spring REST Docs도 당연히 문서가 친절하게 잘 돼있을거라 생각했습니다.
 
-특히 제가 무엇을 잘못했는지, 공식 문서에 나온 내용대로 따라해서는 제가 작성한 API 문서를 볼 수가 없었습니다.
+그런데 제가 무엇을 잘못했는지, 공식 문서에 나온 내용대로 따라해서는 제가 작성한 API 문서를 볼 수가 없었습니다.
 
 공식 문서에 나온 bootJar 작업에 대한 설정은 아래와 같습니다.
 
@@ -86,7 +86,7 @@ Swagger 대비 Spring REST Docs의 대표적인 단점으로 항상 등장하는
 ![Figure02. Spring REST Docs 에서 HTTP 요청 보내고 응답 표시한 화면](/assets/img/2023-11-26-review-spring-rest-docs/02.http-request-in-spring-rest-docs.png)
 
 ```html
-[.text]
+[.html]
 ++++
 <button id="requestButton" value="요청 보내기">Request</button>
 
