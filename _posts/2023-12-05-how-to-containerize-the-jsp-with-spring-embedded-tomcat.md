@@ -15,9 +15,9 @@ date: 2023-12-05 17:10 +0900
 
 Spring Boot에서 JSP를 사용하려면 별도로 설정해줘야 할 것도 있고, 배포할 때도 WAR(Web Archive)로 패키징 해서 외부 Tomcat 서버에 WAR 파일을 붙여넣기 해야하는 등 귀찮은 일이 많았습니다. (해보지는 않았지만 Executable WAR를 생성해서 java -jar 명령어로 실행도 가능하다고 합니다.)
 
-Docker도 조금 배웠고, 편하게 컨테이너로 만들어서 개발하고 배포해볼 수 있지 않을까 싶어서 Spring, JSP 프로젝트를 컨테이너화 하는 방법을 찾아봤습니다. 그런데 `maven` 에서는 `bootWar` 가 안돼 Executable WAR 파일을 만들 수 없어서 외부 Tomcat 서버가 필요하다는 글을 포함해서, 컨테이너 단독으로 실행하는게 잘 안된다는 글이 많이 보입니다.
+Docker도 조금 배웠고, 문득 첫 프로젝트에 사용했던 JSP가 기억이 나서 Spring, JSP 프로젝트를 컨테이너화 하는 방법을 찾아봤습니다. 그런데 `maven` 에서는 `bootWar` 가 안돼 Executable WAR 파일을 만들 수 없어서 외부 Tomcat 서버가 필요하다는 글을 포함해서, 컨테이너 단독으로 실행하는게 잘 안된다는 글이 많이 보입니다.
 
-JSP로 프로젝트를 하는 건 아니지만, Docker 연습도 할 겸, Spring Boot 프로젝트에서 JSP 프로젝트 WAR 파일을 Embedded Tomcat을 이용하는 컨테이너로 만드는 방법과 개발 환경에서 Static 파일 변경 내용을 바로 반영하는 방법을 공유합니다.
+JSP로 프로젝트를 하는 건 아니지만, Docker 연습도 할 겸, Spring Boot를 이용한 JSP 프로젝트 WAR 파일을 Embedded Tomcat을 이용하는 컨테이너로 만드는 방법, 그리고 개발 환경에서 Static 파일 변경 내용을 실행 중인 컨테이너에 바로 반영하는 방법을 공유합니다.
 
 ## 환경
 
@@ -25,7 +25,7 @@ JSP로 프로젝트를 하는 건 아니지만, Docker 연습도 할 겸, Spring
 - Spring Boot 3.2.0
   - 최소 2.5.0 이상
 - JDK 17
-  - JDK 8도 잘 됩니다([https://mio-java.tistory.com/67](https://mio-java.tistory.com/67)).
+  - Spring Boot 2 인 경우, JDK 8을 사용해도 잘 되는 것으로 보입니다([https://mio-java.tistory.com/67](https://mio-java.tistory.com/67)). 필요한 것은 Layertools 입니다.
 - Docker Desktop 4.25.2
   - 최소 4.24.0 이상
 
@@ -183,7 +183,7 @@ build한 WAR 파일을 복사해와서 layertools를 이용해서 WAR 파일의 
 
 Docker는 Layer 단위로 캐싱합니다. application 디렉터리에는 사용자가 자주 변경하는 Java 파일과 static 파일 등이 위치하여, 효율적으로 Docker 이미지를 빌드하고, 배포 시에도 변경된 Layer만 전송하여 데이터 전송량을 절약할 수 있습니다.
 
-> layertools는 WAR파일의 경우 Spring 2.5.0 버전부터 사용 가능합니다.  
+> layertools는 WAR파일의 경우 Spring Boot 2.5.0 버전부터 사용 가능합니다.  
 > WAR 파일 layertools 지원 관련 GitHub Issue([링크](https://github.com/spring-projects/spring-boot/issues/22195)) 및 커밋([GitHub 링크](https://github.com/spring-projects/spring-boot/commit/1245e5eec9179338b9c7663d777ef201d8f065aa))
 
 ```dockerfile
@@ -302,7 +302,7 @@ develop의 watch 속성 내에 `JSP 파일이 변경`된 경우, `JS, CSS 등 st
 
 `ignore` 속성은 여기 작성하지 않았지만, 변경이 발생해도 action을 수행하지 않을 경로를 지정할 수 있습니다. 이전에 작성한 Watch 관련 글([링크](https://limvik.github.io/posts/how-to-use-docker-compose-watch/#configuration))에 간단한 사용법을 참고하실 수 있습니다.
 
-Maven으로 Compose 파일을 작성하는 경우에는 rebuild 시 path를 Maven에 맞추어 수정해야합니다. 그리고 저는 Dockerfile을 같은 프로젝트에 두어서 Maven용 Dockerfile은 Dockerfile-maven으로 변경하였습니다.
+Maven을 사용하는 Compose 파일 작성 시에는 rebuild 의 path를 Maven에 맞추어 수정해야합니다. 그리고 저는 Dockerfile을 같은 프로젝트에 두어서 Maven용 Dockerfile은 Dockerfile-maven으로 변경하였습니다.
 
 ```yaml
 version: "3.8"
@@ -358,7 +358,7 @@ docker compose -f compose-maven.yml -p jsp-docker-maven watch
 
 `-p` 는 프로세스 이름을 지정하는 것인데, watch를 종료해도 가끔 프로세스가 종료되지 않아 프로세스 이름을 바꿔가면서 실행해야하는 경우가 있어서 프로세스 이름을 지정합니다.
 
-다음은 docker compose 명령을 실행하고, 변경사항을 실시간으로 적용했을 때 Log입니다.
+다음은 위의 docker compose 명령을 실행하고, 변경사항을 실시간으로 적용했을 때 Log입니다.
 
 ```text
 [+] Building 1.8s (15/15) FINISHED                                                                                                                                                                                   docker:default
