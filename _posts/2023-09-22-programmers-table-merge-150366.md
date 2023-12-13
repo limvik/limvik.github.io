@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 프로그래머스 Lv 3. 표 병합
-cateogries:
+categories:
 - CodingTest
 - Programmers
 tags:
