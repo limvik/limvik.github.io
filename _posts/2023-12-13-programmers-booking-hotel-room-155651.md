@@ -179,13 +179,13 @@ Collections.sort(requestedBooks);
 
 그리고 ArrayList의 size는 명확하다보니, ArrayList Size 증가를 위해 시간이 지연되는 것을 방지하고자 `book_time.length * book_time[0].length` 로 size를 지정하였습니다. 마찬가지로 데이터 갯수가 최대 1000개라 크게 신경써야 할 부분은 아닌 것 같습니다.
 
-다음으로 예약 정보를 저장하기 위해서 `LocalTime` 을 이용해 문자열 시간 정보를 parsing 한 후 `Book` 객체로 만들어 정의한 앞서 정의한 ArrayList 에 저정하였습니다. `Book` 객체는 나중에 뒤에서 살펴보겠습니다.
+다음으로 예약 정보를 저장하기 위해서 `LocalTime` 을 이용해 문자열 시간 정보를 parsing 한 후 `Book` 객체로 만들어 앞서 정의한 ArrayList 에 저장하였습니다. `Book` 객체는 나중에 뒤에서 살펴보겠습니다.
 
 입력인 `book_time`의 모든 데이터를 `Book` 객체의 ArrayList로 변환한 후 `Collections.sort(requestedBooks);`를 통해 정렬합니다. 아무 순서로나 Booking을 할 경우, 각 방마다 비어있는 예약 시간을 확인하고 최적의 장소에 배치해야 하므로, 미리 `시작 시간(startTime)을 기준으로 정렬`합니다. 시작 시간을 기준으로 정렬해야 Room의 비어있는 앞쪽 공간부터  채워나갈 수 있어 종료 시간(endTime)만 확인하고도 Booking 가능 여부를 판단할 수 있습니다.
 
 #### requestedBooks 를 기존 예약 정보가 있는 Room에 추가하거나 새로운 Room에 추가
 
-이어서 solution method에 있는 코드를 보겠습니다.
+이어서 solution method에 있는 나머지 코드를 보겠습니다.
 
 ```java
 List<Room> rooms = new ArrayList<>();
@@ -210,7 +210,7 @@ for (var requestedBook : requestedBooks) {
 return rooms.size();
 ```
 
-이어서 `Room` 객체의 ArrayList를 만듭니다. 그리고 제한사항에 `book_time`이 최소 1개 있다고 하였으므로, 기본적으로 최소 1개의 `Room`이 필요하므로 바로 추가(`rooms.add(new Room());`)합니다.
+`Room` 객체의 ArrayList를 만듭니다. 그리고 제한사항에 `book_time`이 최소 1개 있다고 하였으므로, 기본적으로 최소 1개의 `Room`이 필요하므로 바로 추가(`rooms.add(new Room());`)합니다.
 
 다음으로 앞서 정렬한 `Book` 객체의 ArrayList인 requestedBooks에 enhanced for문을 이용하여 `Book` 객체를 하나씩 가져와 현재 Booking 정보가 있는 `Room` 중에 여유 시간이 있는 `Room`이 있는지 확인하고, 추가할 수 있으면 `Book` 객체를 추가합니다.
 

@@ -27,7 +27,7 @@ JSP로 프로젝트를 하는 건 아니지만, Docker 연습도 할 겸, Spring
 - JDK 17
   - Spring Boot 2 인 경우, JDK 8을 사용해도 잘 되는 것으로 보입니다([https://mio-java.tistory.com/67](https://mio-java.tistory.com/67)). 필요한 것은 Layertools 입니다.
 - Docker Desktop 4.25.2
-  - 최소 4.24.0 이상
+  - Compose Watch 기능을 위해 최소 4.24.0 이상 필요
 
 ## Build 설정
 
