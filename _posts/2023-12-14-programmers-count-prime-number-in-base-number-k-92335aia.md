@@ -57,7 +57,7 @@ date: 2023-12-14 13:31 +0900
 
 ![01.풀이 계획 예시](/assets/img/2023-12-14-programmers-count-prime-number-in-base-number-k-92335AIA/01.solving-plan-example.png)
 
-그리고 키보드에 손을 올리자마자, [`split()`]((https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html#split%28java.lang.String%29)) method를 사용하면 되는데 왜 그랬지? 하는 생각과 함께 바로 `split()`을 사용하는 것으로 계획을 변경했습니다.
+그리고 키보드에 손을 올리자마자, [`split()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html#split%28java.lang.String%29) method를 사용하면 되는데 왜 그랬지? 하는 생각과 함께 바로 `split()`을 사용하는 것으로 계획을 변경했습니다.
 
 ## 코드
 
