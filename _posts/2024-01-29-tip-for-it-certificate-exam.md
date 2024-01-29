@@ -13,7 +13,7 @@ date: 2024-01-29 20:02 +0900
 
 많은 분들이 응시하는 `정보처리기사`를 예시로 작성해보겠습니다. 2020년 부터 실기 합격률이 많이 떨어졌는데, 2020년부터 NCS가 적용됐다고 합니다. 2017년에도 실기시험 개편으로 합격률이 다른 해에 비해 많이 낮은 것을 볼 수 있습니다.
 
-![01. 2015~2022 정보처리기사 합격률](/assets/img/2024-01-29-tip-for-it-certificate-exam\01.pass-rate-engineering-information-processing.png)
+![01. 2015~2022 정보처리기사 합격률](/assets/img/2024-01-29-tip-for-it-certificate-exam/01.pass-rate-engineering-information-processing.png)
 
 제가 봤던 2022년은 `20.8%` 였습니다. 쉽다는 소리가 더 많이 들리는데 합격률은 그렇지 못한 신비한 자격증입니다. 여튼, 이제 정보처리기사 자격증을 대상으로 자격증 공부 팁을 공유해 보겠습니다.
 
@@ -91,9 +91,9 @@ Anki는 `간격 반복(spaced repetition)` 학습 방식을 지원하여 이미 
 
 특히 문장에 구멍을 뚫어주는 `cloze` 기능은 기출 문제를 풀면서 틀린 선지의 핵심 키워드에 구멍을 뚫어 Flashcard에 추가하면 틀린 부분을 복습할 수 있습니다.
 
-![02. cloze 앞면](/assets/img/2024-01-29-tip-for-it-certificate-exam\02.card-front-cloze.png)
+![02. cloze 앞면](/assets/img/2024-01-29-tip-for-it-certificate-exam/02.card-front-cloze.png)
 
-![03. cloze 뒷면](/assets/img/2024-01-29-tip-for-it-certificate-exam\03.card-back-cloze.png)
+![03. cloze 뒷면](/assets/img/2024-01-29-tip-for-it-certificate-exam/03.card-back-cloze.png)
 
 실기 문제에서도 빈 칸에 올바른 단어 채워넣기 문제가 있다보니, 필기 시험부터 이렇게 공부하면 굳이 실기를 따로 준비할 필요가 없습니다. 그래서 저의 경우 정보처리기사 실기는 기출문제만 보고 굳이 책 내용을 따로 보지는 않았습니다.
 
@@ -103,11 +103,11 @@ Anki는 `간격 반복(spaced repetition)` 학습 방식을 지원하여 이미 
 
 그래서 다음과 같이 답을 직접 타이핑해서 입력하는 카드를 추가합니다.
 
-![04. 답 입력 카드 앞면](/assets/img/2024-01-29-tip-for-it-certificate-exam\04.card-front-write-answer.png)
+![04. 답 입력 카드 앞면](/assets/img/2024-01-29-tip-for-it-certificate-exam/04.card-front-write-answer.png)
 
 입력 후 엔터를 누르면 문자열이 일치하는 부분을 찾아 표시합니다.
 
-![05. 답 입력 카드 뒷면](/assets/img/2024-01-29-tip-for-it-certificate-exam\05.card-back-write-answer.png)
+![05. 답 입력 카드 뒷면](/assets/img/2024-01-29-tip-for-it-certificate-exam/05.card-back-write-answer.png)
 
 ### 기타 Anki 이용 팁
 
