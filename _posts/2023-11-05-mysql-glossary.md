@@ -64,6 +64,10 @@ Transaction 부터 시작해서 보다보니, 한도 끝도 없어서 그냥 생
 
 - [Doublewrite Buffer](#doublewrite-buffer)
 
+### I
+
+- [InnoDB](#innodb)
+
 ### L
 
 - [LSN](#lsn)
@@ -219,7 +223,7 @@ Transaction 부터 시작해서 보다보니, 한도 끝도 없어서 그냥 생
 >
 > Although data is always written twice, the doublewrite buffer does not require twice as much I/O overhead or twice as many I/O operations. Data is written to the buffer itself as a large sequential chunk, with a single  `fsync()`  call to the operating system.
 
-### 번역
+#### 번역
 
 > `InnoDB`는 doublewrite라는 file flush 기술을 사용합니다. `InnoDB`는 **data files**에 **pages**를 쓰기 전에 먼저 doublewrite buffer라는 storage area에 pages를 write합니다. write와 doublewrite buffer에 대한 flush가 완료된 후에야 `InnoDB`는 pages를 data files의 적절한 위치에 write 합니다. page write 도중에 OS, storage subsystem 또는 mysqld 프로세스가 충돌하는 경우, `InnoDB`는 crash recovery 중에 doublewrite buffer에서 page의 올바른 복사본을 찾을 수 있습니다.
 >
@@ -239,6 +243,28 @@ Transaction 부터 시작해서 보다보니, 한도 끝도 없어서 그냥 생
 - crash recovery 중에 사용되면 redo log하고는 무슨 관계가 있는걸까?
 - page는 뭘 의미하는거지?
 - data files 는 정확히 무엇을 가리키는거지?
+
+### InnoDB
+
+[InnoDB](https://dev.mysql.com/doc/refman/8.0/en/glossary.html#glos_innodb)
+
+> A MySQL component that combines high performance with  **transactional**  capability for reliability, robustness, and concurrent access. It embodies the  **ACID**  design philosophy. Represented as a  **storage engine**; it handles tables created or altered with the  `ENGINE=INNODB`  clause. See  [Chapter 17,  _The InnoDB Storage Engine_](https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html)  for architectural details and administration procedures, and  [Section 10.5, “Optimizing for InnoDB Tables”](https://dev.mysql.com/doc/refman/8.0/en/optimizing-innodb.html)  for performance advice.
+>
+>In MySQL 5.5 and higher,  `InnoDB`  is the default storage engine for new tables and the  `ENGINE=INNODB`  clause is not required.
+>
+>`InnoDB`  tables are ideally suited for  **hot backups**. See  [Section 32.2, “MySQL Enterprise Backup Overview”](https://dev.mysql.com/doc/refman/8.0/en/mysql-enterprise-backup.html)  for information about the  **MySQL Enterprise Backup**  product for backing up MySQL servers without interrupting normal processing.
+
+#### 번역
+
+> 안정성, 견고성 및 동시 접근을 위한 고성능 트랜잭션 기능을 결합한 MySQL 컴포넌트 입니다. InnoDB는 ACID 설계 철학을 구현합니다. Storage engine이라 표현하며, `ENGINE=INNODB` 절로 생성 또는 변경된 테이블을 처리합니다. 아키텍처 세부 사항 및 고나리 절차는 17장, The InnoDB Storage Engine에서, 성능에 대한 조언은 10.5절, Optimizing for InnoDB Tables를 참조하세요.
+>
+> MySQL 5.5 이상에서는 `InnoDB`가 새로운 테이블의 기본 Storage engine으로 사용되므로, `ENGINE=INNODB` 절이 필요하지 않습니다.
+>
+> InnoDB 테이블은 hot backups에 이상적입니다. 일반적인 처리를 중단하지 않고 MySQL 서버를 백업하기 위한 MySQL Enterprise Backup 제품에 대한 정보는 32.2절, MySQL Enterprise Backup Overview를 참조하세요.
+
+#### 새로 알게된 것
+
+- MySQL에서 Hot backup은 enterprise 제품에서 사용 가능한 기능이다.
 
 ### LSN
 
